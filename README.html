@@ -1,0 +1,1687 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><style>body {
+  max-width: 980px;
+  border: 1px solid #ddd;
+  outline: 1300px solid #fff;
+  margin: 16px auto;
+}
+
+body .markdown-body
+{
+  padding: 45px;
+}
+
+@font-face {
+  font-family: fontawesome-mini;
+  src: url(data:font/woff;charset=utf-8;base64,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) format('woff');
+}
+
+@font-face {
+  font-family: octicons-anchor;
+  src: url(data:font/woff;charset=utf-8;base64,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) format('woff');
+}
+
+.markdown-body {
+  font-family: sans-serif;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  color: #333333;
+  overflow: hidden;
+  font-family: "Helvetica Neue", Helvetica, "Segoe UI", Arial, freesans, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  word-wrap: break-word;
+}
+
+.markdown-body a {
+  background: transparent;
+}
+
+.markdown-body a:active,
+.markdown-body a:hover {
+  outline: 0;
+}
+
+.markdown-body b,
+.markdown-body strong {
+  font-weight: bold;
+}
+
+.markdown-body mark {
+  background: #ff0;
+  color: #000;
+  font-style: italic;
+  font-weight: bold;
+}
+
+.markdown-body sub,
+.markdown-body sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+.markdown-body sup {
+  top: -0.5em;
+}
+.markdown-body sub {
+  bottom: -0.25em;
+}
+
+.markdown-body h1 {
+  font-size: 2em;
+  margin: 0.67em 0;
+}
+
+.markdown-body img {
+  border: 0;
+}
+
+.markdown-body hr {
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  height: 0;
+}
+
+.markdown-body pre {
+  overflow: auto;
+}
+
+.markdown-body code,
+.markdown-body kbd,
+.markdown-body pre,
+.markdown-body samp {
+  font-family: monospace, monospace;
+  font-size: 1em;
+}
+
+.markdown-body input {
+  color: inherit;
+  font: inherit;
+  margin: 0;
+}
+
+.markdown-body html input[disabled] {
+  cursor: default;
+}
+
+.markdown-body input {
+  line-height: normal;
+}
+
+.markdown-body input[type="checkbox"] {
+  box-sizing: border-box;
+  padding: 0;
+}
+
+.markdown-body table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+.markdown-body td,
+.markdown-body th {
+  padding: 0;
+}
+
+.markdown-body .codehilitetable {
+  border: 0;
+  border-spacing: 0;
+}
+
+.markdown-body .codehilitetable tr {
+  border: 0;
+}
+
+.markdown-body .codehilitetable pre,
+.markdown-body .codehilitetable div.codehilite {
+  margin: 0;
+}
+
+.markdown-body .linenos,
+.markdown-body .code,
+.markdown-body .codehilitetable td {
+  border: 0;
+  padding: 0;
+}
+
+.markdown-body td:not(.linenos) .linenodiv {
+  padding: 0 !important;
+}
+
+.markdown-body .code {
+  width: 100%;
+}
+
+.markdown-body .linenos div pre,
+.markdown-body .linenodiv pre,
+.markdown-body .linenodiv {
+  border: 0;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+  -webkit-border-top-left-radius: 3px;
+  -webkit-border-bottom-left-radius: 3px;
+  -moz-border-radius-topleft: 3px;
+  -moz-border-radius-bottomleft: 3px;
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
+
+.markdown-body .code div pre,
+.markdown-body .code div {
+  border: 0;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+  -webkit-border-top-right-radius: 3px;
+  -webkit-border-bottom-right-radius: 3px;
+  -moz-border-radius-topright: 3px;
+  -moz-border-radius-bottomright: 3px;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+
+.markdown-body * {
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.markdown-body input {
+  font: 13px Helvetica, arial, freesans, clean, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+  line-height: 1.4;
+}
+
+.markdown-body a {
+  color: #4183c4;
+  text-decoration: none;
+}
+
+.markdown-body a:hover,
+.markdown-body a:focus,
+.markdown-body a:active {
+  text-decoration: underline;
+}
+
+.markdown-body hr {
+  height: 0;
+  margin: 15px 0;
+  overflow: hidden;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.markdown-body hr:before,
+.markdown-body hr:after {
+  display: table;
+  content: " ";
+}
+
+.markdown-body hr:after {
+  clear: both;
+}
+
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3,
+.markdown-body h4,
+.markdown-body h5,
+.markdown-body h6 {
+  margin-top: 15px;
+  margin-bottom: 15px;
+  line-height: 1.1;
+}
+
+.markdown-body h1 {
+  font-size: 30px;
+}
+
+.markdown-body h2 {
+  font-size: 21px;
+}
+
+.markdown-body h3 {
+  font-size: 16px;
+}
+
+.markdown-body h4 {
+  font-size: 14px;
+}
+
+.markdown-body h5 {
+  font-size: 12px;
+}
+
+.markdown-body h6 {
+  font-size: 11px;
+}
+
+.markdown-body blockquote {
+  margin: 0;
+}
+
+.markdown-body ul,
+.markdown-body ol {
+  padding: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.markdown-body ol ol,
+.markdown-body ul ol {
+  list-style-type: lower-roman;
+}
+
+.markdown-body ul ul ol,
+.markdown-body ul ol ol,
+.markdown-body ol ul ol,
+.markdown-body ol ol ol {
+  list-style-type: lower-alpha;
+}
+
+.markdown-body dd {
+  margin-left: 0;
+}
+
+.markdown-body code,
+.markdown-body pre,
+.markdown-body samp {
+  font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  font-size: 12px;
+}
+
+.markdown-body pre {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.markdown-body kbd {
+  background-color: #e7e7e7;
+  background-image: -moz-linear-gradient(#fefefe, #e7e7e7);
+  background-image: -webkit-linear-gradient(#fefefe, #e7e7e7);
+  background-image: linear-gradient(#fefefe, #e7e7e7);
+  background-repeat: repeat-x;
+  border-radius: 2px;
+  border: 1px solid #cfcfcf;
+  color: #000;
+  padding: 3px 5px;
+  line-height: 10px;
+  font: 11px Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  display: inline-block;
+}
+
+.markdown-body>*:first-child {
+  margin-top: 0 !important;
+}
+
+.markdown-body>*:last-child {
+  margin-bottom: 0 !important;
+}
+
+.markdown-body .headeranchor-link {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  display: block;
+  padding-right: 6px;
+  padding-left: 30px;
+  margin-left: -30px;
+}
+
+.markdown-body .headeranchor-link:focus {
+  outline: none;
+}
+
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3,
+.markdown-body h4,
+.markdown-body h5,
+.markdown-body h6 {
+  position: relative;
+  margin-top: 1em;
+  margin-bottom: 16px;
+  font-weight: bold;
+  line-height: 1.4;
+}
+
+.markdown-body h1 .headeranchor,
+.markdown-body h2 .headeranchor,
+.markdown-body h3 .headeranchor,
+.markdown-body h4 .headeranchor,
+.markdown-body h5 .headeranchor,
+.markdown-body h6 .headeranchor {
+  display: none;
+  color: #000;
+  vertical-align: middle;
+}
+
+.markdown-body h1:hover .headeranchor-link,
+.markdown-body h2:hover .headeranchor-link,
+.markdown-body h3:hover .headeranchor-link,
+.markdown-body h4:hover .headeranchor-link,
+.markdown-body h5:hover .headeranchor-link,
+.markdown-body h6:hover .headeranchor-link {
+  height: 1em;
+  padding-left: 8px;
+  margin-left: -30px;
+  line-height: 1;
+  text-decoration: none;
+}
+
+.markdown-body h1:hover .headeranchor-link .headeranchor,
+.markdown-body h2:hover .headeranchor-link .headeranchor,
+.markdown-body h3:hover .headeranchor-link .headeranchor,
+.markdown-body h4:hover .headeranchor-link .headeranchor,
+.markdown-body h5:hover .headeranchor-link .headeranchor,
+.markdown-body h6:hover .headeranchor-link .headeranchor {
+  display: inline-block;
+}
+
+.markdown-body h1 {
+  padding-bottom: 0.3em;
+  font-size: 2.25em;
+  line-height: 1.2;
+  border-bottom: 1px solid #eee;
+}
+
+.markdown-body h2 {
+  padding-bottom: 0.3em;
+  font-size: 1.75em;
+  line-height: 1.225;
+  border-bottom: 1px solid #eee;
+}
+
+.markdown-body h3 {
+  font-size: 1.5em;
+  line-height: 1.43;
+}
+
+.markdown-body h4 {
+  font-size: 1.25em;
+}
+
+.markdown-body h5 {
+  font-size: 1em;
+}
+
+.markdown-body h6 {
+  font-size: 1em;
+  color: #777;
+}
+
+.markdown-body p,
+.markdown-body blockquote,
+.markdown-body ul,
+.markdown-body ol,
+.markdown-body dl,
+.markdown-body table,
+.markdown-body pre,
+.markdown-body .admonition {
+  margin-top: 0;
+  margin-bottom: 16px;
+}
+
+.markdown-body hr {
+  height: 4px;
+  padding: 0;
+  margin: 16px 0;
+  background-color: #e7e7e7;
+  border: 0 none;
+}
+
+.markdown-body ul,
+.markdown-body ol {
+  padding-left: 2em;
+}
+
+.markdown-body ul ul,
+.markdown-body ul ol,
+.markdown-body ol ol,
+.markdown-body ol ul {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.markdown-body li>p {
+  margin-top: 16px;
+}
+
+.markdown-body dl {
+  padding: 0;
+}
+
+.markdown-body dl dt {
+  padding: 0;
+  margin-top: 16px;
+  font-size: 1em;
+  font-style: italic;
+  font-weight: bold;
+}
+
+.markdown-body dl dd {
+  padding: 0 16px;
+  margin-bottom: 16px;
+}
+
+.markdown-body blockquote {
+  padding: 0 15px;
+  color: #777;
+  border-left: 4px solid #ddd;
+}
+
+.markdown-body blockquote>:first-child {
+  margin-top: 0;
+}
+
+.markdown-body blockquote>:last-child {
+  margin-bottom: 0;
+}
+
+.markdown-body table {
+  display: block;
+  width: 100%;
+  overflow: auto;
+  word-break: normal;
+  word-break: keep-all;
+}
+
+.markdown-body table th {
+  font-weight: bold;
+}
+
+.markdown-body table th,
+.markdown-body table td {
+  padding: 6px 13px;
+  border: 1px solid #ddd;
+}
+
+.markdown-body table tr {
+  background-color: #fff;
+  border-top: 1px solid #ccc;
+}
+
+.markdown-body table tr:nth-child(2n) {
+  background-color: #f8f8f8;
+}
+
+.markdown-body img {
+  max-width: 100%;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.markdown-body code,
+.markdown-body samp {
+  padding: 0;
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
+  margin: 0;
+  font-size: 85%;
+  background-color: rgba(0,0,0,0.04);
+  border-radius: 3px;
+}
+
+.markdown-body code:before,
+.markdown-body code:after {
+  letter-spacing: -0.2em;
+  content: "\00a0";
+}
+
+.markdown-body pre>code {
+  padding: 0;
+  margin: 0;
+  font-size: 100%;
+  word-break: normal;
+  white-space: pre;
+  background: transparent;
+  border: 0;
+}
+
+.markdown-body .codehilite {
+  margin-bottom: 16px;
+}
+
+.markdown-body .codehilite pre,
+.markdown-body pre {
+  padding: 16px;
+  overflow: auto;
+  font-size: 85%;
+  line-height: 1.45;
+  background-color: #f7f7f7;
+  border-radius: 3px;
+}
+
+.markdown-body .codehilite pre {
+  margin-bottom: 0;
+  word-break: normal;
+}
+
+.markdown-body pre {
+  word-wrap: normal;
+}
+
+.markdown-body pre code {
+  display: inline;
+  max-width: initial;
+  padding: 0;
+  margin: 0;
+  overflow: initial;
+  line-height: inherit;
+  word-wrap: normal;
+  background-color: transparent;
+  border: 0;
+}
+
+.markdown-body pre code:before,
+.markdown-body pre code:after {
+  content: normal;
+}
+
+/* Admonition */
+.markdown-body .admonition {
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  position: relative;
+  border-radius: 3px;
+  border: 1px solid #e0e0e0;
+  border-left: 6px solid #333;
+  padding: 10px 10px 10px 30px;
+}
+
+.markdown-body .admonition table {
+  color: #333;
+}
+
+.markdown-body .admonition p {
+  padding: 0;
+}
+
+.markdown-body .admonition-title {
+  font-weight: bold;
+  margin: 0;
+}
+
+.markdown-body .admonition>.admonition-title {
+  color: #333;
+}
+
+.markdown-body .attention>.admonition-title {
+  color: #a6d796;
+}
+
+.markdown-body .caution>.admonition-title {
+  color: #d7a796;
+}
+
+.markdown-body .hint>.admonition-title {
+  color: #96c6d7;
+}
+
+.markdown-body .danger>.admonition-title {
+  color: #c25f77;
+}
+
+.markdown-body .question>.admonition-title {
+  color: #96a6d7;
+}
+
+.markdown-body .note>.admonition-title {
+  color: #d7c896;
+}
+
+.markdown-body .admonition:before,
+.markdown-body .attention:before,
+.markdown-body .caution:before,
+.markdown-body .hint:before,
+.markdown-body .danger:before,
+.markdown-body .question:before,
+.markdown-body .note:before {
+  font: normal normal 16px fontawesome-mini;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  line-height: 1.5;
+  color: #333;
+  position: absolute;
+  left: 0;
+  top: 0;
+  padding-top: 10px;
+  padding-left: 10px;
+}
+
+.markdown-body .admonition:before {
+  content: "\f056\00a0";
+  color: 333;
+}
+
+.markdown-body .attention:before {
+  content: "\f058\00a0";
+  color: #a6d796;
+}
+
+.markdown-body .caution:before {
+  content: "\f06a\00a0";
+  color: #d7a796;
+}
+
+.markdown-body .hint:before {
+  content: "\f05a\00a0";
+  color: #96c6d7;
+}
+
+.markdown-body .danger:before {
+  content: "\f057\00a0";
+  color: #c25f77;
+}
+
+.markdown-body .question:before {
+  content: "\f059\00a0";
+  color: #96a6d7;
+}
+
+.markdown-body .note:before {
+  content: "\f040\00a0";
+  color: #d7c896;
+}
+
+.markdown-body .admonition::after {
+  content: normal;
+}
+
+.markdown-body .attention {
+  border-left: 6px solid #a6d796;
+}
+
+.markdown-body .caution {
+  border-left: 6px solid #d7a796;
+}
+
+.markdown-body .hint {
+  border-left: 6px solid #96c6d7;
+}
+
+.markdown-body .danger {
+  border-left: 6px solid #c25f77;
+}
+
+.markdown-body .question {
+  border-left: 6px solid #96a6d7;
+}
+
+.markdown-body .note {
+  border-left: 6px solid #d7c896;
+}
+
+.markdown-body .admonition>*:first-child {
+  margin-top: 0 !important;
+}
+
+.markdown-body .admonition>*:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* progress bar*/
+.markdown-body .progress {
+  display: block;
+  width: 300px;
+  margin: 10px 0;
+  height: 24px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  background-color: #ededed;
+  position: relative;
+  box-shadow: inset -1px 1px 3px rgba(0, 0, 0, .1);
+}
+
+.markdown-body .progress-label {
+  position: absolute;
+  text-align: center;
+  font-weight: bold;
+  width: 100%; margin: 0;
+  line-height: 24px;
+  color: #333;
+  text-shadow: 1px 1px 0 #fefefe, -1px -1px 0 #fefefe, -1px 1px 0 #fefefe, 1px -1px 0 #fefefe, 0 1px 0 #fefefe, 0 -1px 0 #fefefe, 1px 0 0 #fefefe, -1px 0 0 #fefefe, 1px 1px 2px #000;
+  -webkit-font-smoothing: antialiased !important;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.markdown-body .progress-bar {
+  height: 24px;
+  float: left;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  background-color: #96c6d7;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .5), inset 0 -1px 0 rgba(0, 0, 0, .1);
+  background-size: 30px 30px;
+  background-image: -webkit-linear-gradient(
+    135deg, rgba(255, 255, 255, .4) 27%,
+    transparent 27%,
+    transparent 52%, rgba(255, 255, 255, .4) 52%,
+    rgba(255, 255, 255, .4) 77%,
+    transparent 77%, transparent
+  );
+  background-image: -moz-linear-gradient(
+    135deg,
+    rgba(255, 255, 255, .4) 27%, transparent 27%,
+    transparent 52%, rgba(255, 255, 255, .4) 52%,
+    rgba(255, 255, 255, .4) 77%, transparent 77%,
+    transparent
+  );
+  background-image: -ms-linear-gradient(
+    135deg,
+    rgba(255, 255, 255, .4) 27%, transparent 27%,
+    transparent 52%, rgba(255, 255, 255, .4) 52%,
+    rgba(255, 255, 255, .4) 77%, transparent 77%,
+    transparent
+  );
+  background-image: -o-linear-gradient(
+    135deg,
+    rgba(255, 255, 255, .4) 27%, transparent 27%,
+    transparent 52%, rgba(255, 255, 255, .4) 52%,
+    rgba(255, 255, 255, .4) 77%, transparent 77%,
+    transparent
+  );
+  background-image: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, .4) 27%, transparent 27%,
+    transparent 52%, rgba(255, 255, 255, .4) 52%,
+    rgba(255, 255, 255, .4) 77%, transparent 77%,
+    transparent
+  );
+}
+
+.markdown-body .progress-100plus .progress-bar {
+  background-color: #a6d796;
+}
+
+.markdown-body .progress-80plus .progress-bar {
+  background-color: #c6d796;
+}
+
+.markdown-body .progress-60plus .progress-bar {
+  background-color: #d7c896;
+}
+
+.markdown-body .progress-40plus .progress-bar {
+  background-color: #d7a796;
+}
+
+.markdown-body .progress-20plus .progress-bar {
+  background-color: #d796a6;
+}
+
+.markdown-body .progress-0plus .progress-bar {
+  background-color: #c25f77;
+}
+
+.markdown-body .candystripe-animate .progress-bar{
+  -webkit-animation: animate-stripes 3s linear infinite;
+  -moz-animation: animate-stripes 3s linear infinite;
+  animation: animate-stripes 3s linear infinite;
+}
+
+@-webkit-keyframes animate-stripes {
+  0% {
+    background-position: 0 0;
+  }
+
+  100% {
+    background-position: 60px 0;
+  }
+}
+
+@-moz-keyframes animate-stripes {
+  0% {
+    background-position: 0 0;
+  }
+
+  100% {
+    background-position: 60px 0;
+  }
+}
+
+@keyframes animate-stripes {
+  0% {
+    background-position: 0 0;
+  }
+
+  100% {
+    background-position: 60px 0;
+  }
+}
+
+.markdown-body .gloss .progress-bar {
+  box-shadow:
+    inset 0 4px 12px rgba(255, 255, 255, .7),
+    inset 0 -12px 0 rgba(0, 0, 0, .05);
+}
+
+/* Multimarkdown Critic Blocks */
+.markdown-body .critic_mark {
+  background: #ff0;
+}
+
+.markdown-body .critic_delete {
+  color: #c82829;
+  text-decoration: line-through;
+}
+
+.markdown-body .critic_insert {
+  color: #718c00 ;
+  text-decoration: underline;
+}
+
+.markdown-body .critic_comment {
+  color: #8e908c;
+  font-style: italic;
+}
+
+.markdown-body .headeranchor {
+  font: normal normal 16px octicons-anchor;
+  line-height: 1;
+  display: inline-block;
+  text-decoration: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.headeranchor:before {
+  content: '\f05c';
+}
+
+.markdown-body .task-list-item {
+  list-style-type: none;
+}
+
+.markdown-body .task-list-item+.task-list-item {
+  margin-top: 3px;
+}
+
+.markdown-body .task-list-item input {
+  margin: 0 4px 0.25em -20px;
+  vertical-align: middle;
+}
+
+/* Media */
+@media only screen and (min-width: 480px) {
+  .markdown-body {
+    font-size:14px;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .markdown-body {
+    font-size:16px;
+  }
+}
+
+@media print {
+  .markdown-body * {
+    background: transparent !important;
+    color: black !important;
+    filter:none !important;
+    -ms-filter: none !important;
+  }
+
+  .markdown-body {
+    font-size:12pt;
+    max-width:100%;
+    outline:none;
+    border: 0;
+  }
+
+  .markdown-body a,
+  .markdown-body a:visited {
+    text-decoration: underline;
+  }
+
+  .markdown-body .headeranchor-link {
+    display: none;
+  }
+
+  .markdown-body a[href]:after {
+    content: " (" attr(href) ")";
+  }
+
+  .markdown-body abbr[title]:after {
+    content: " (" attr(title) ")";
+  }
+
+  .markdown-body .ir a:after,
+  .markdown-body a[href^="javascript:"]:after,
+  .markdown-body a[href^="#"]:after {
+    content: "";
+  }
+
+  .markdown-body pre {
+    white-space: pre;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+
+  .markdown-body pre,
+  .markdown-body blockquote {
+    border: 1px solid #999;
+    padding-right: 1em;
+    page-break-inside: avoid;
+  }
+
+  .markdown-body .progress,
+  .markdown-body .progress-bar {
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+  }
+
+  .markdown-body .progress {
+    border: 1px solid #ddd;
+  }
+
+  .markdown-body .progress-bar {
+    height: 22px;
+    border-right: 1px solid #ddd;
+  }
+
+  .markdown-body tr,
+  .markdown-body img {
+    page-break-inside: avoid;
+  }
+
+  .markdown-body img {
+    max-width: 100% !important;
+  }
+
+  .markdown-body p,
+  .markdown-body h2,
+  .markdown-body h3 {
+    orphans: 3;
+    widows: 3;
+  }
+
+  .markdown-body h2,
+  .markdown-body h3 {
+    page-break-after: avoid;
+  }
+}
+</style><title>README</title></head><body><article class="markdown-body"><h1 id="wechat"><a name="user-content-wechat" href="#wechat" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>wechat</h1>
+<blockquote>
+<p>手把手实现微信网页授权和微信支付，附源代码（VUE and thinkPHP）</p>
+</blockquote>
+<h2 id="_1"><a name="user-content-_1" href="#_1" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>概述</h2>
+<p>公众号开发是痛苦的，痛苦在好多问题开发者文档是没有提到的，是需要你<code>猜</code>的. 在开发过程中翻了好多的文档，都是说明其中的一部分问题的，很费时间,所以在此总结大体过程。我们模拟的是一个支付的商城，在实现购买过程中基本是把微信公众号<code>最主要模块</code>实现了，其余的功能我们没有涉及，但应该是触类旁通的。</p>
+<p><strong>我们叙述的过程是按<code>开发流程</code>进行叙述的，不会是按照<code>开发文档</code>的形式叙述，希望您能结合<a href="https://mp.weixin.qq.com/wiki?t=resource/res_main&amp;id=mp1445241432">微信的开发文档</a>一起阅读，当然在流程中我们会提醒你阅读的部分</strong></p>
+<p>主要模块：<br />
+​  <br />
+    1. 微信授权<br />
+    2. 微信公众号支付<br />
+    3. 消息推送(PHP)<br />
+    3. 微信扫一扫</p>
+<h2 id="_2"><a name="user-content-_2" href="#_2" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>目录</h2>
+<h4 id="_3"><a name="user-content-_3" href="#_3" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>解决的问题</h4>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked> 微信网页授权</li>
+<li class="task-list-item"><input type="checkbox" disabled checked> 公众号支付</li>
+<li class="task-list-item"><input type="checkbox" disabled checked> 公众号分享</li>
+<li class="task-list-item"><input type="checkbox" disabled checked> 公众号扫一扫</li>
+<li class="task-list-item"><input type="checkbox" disabled checked> 微信后台获取webapp(spa-vue)路由，导致 invalid 问题</li>
+<li class="task-list-item"><input type="checkbox" disabled checked> 前端history.pushState()导致ios失效问题</li>
+<li class="task-list-item"><input type="checkbox" disabled checked> 换取微信openID 顺序问题</li>
+<li class="task-list-item"><input type="checkbox" disabled checked> 网页授权后强制登录官网账户，全局进行拦截</li>
+<li class="task-list-item"><input type="checkbox" disabled checked> 前端反向代理</li>
+</ul>
+<h4 id="_4"><a name="user-content-_4" href="#_4" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>前端技术栈</h4>
+<p>vue2 + vuex + vue-router + webpack + ES6/7 + axios + sass + flex </p>
+<h4 id="_5"><a name="user-content-_5" href="#_5" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>后端技术栈</h4>
+<p>thinkPHP3.2 + mysql + 阿里云</p>
+<h4 id="_6"><a name="user-content-_6" href="#_6" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>前端项目运行</h4>
+<pre><code>git clone https://github.com/bailicangdu/vue2-elm.git  
+</code></pre>
+
+<pre><code class="bash"># install dependencies
+npm install
+
+# serve with hot reload at localhost:8080
+npm run dev
+
+# build for production with minification
+npm run build
+</code></pre>
+
+<h4 id="_7"><a name="user-content-_7" href="#_7" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>基本说明</h4>
+<blockquote>
+<p>开发环境 macOS 10.13.3   nodejs 8.0.0  centOS 7.4 </p>
+<p>本文中使用的url是m.example.com (demo), 开发过程中需要替换成你的URL。</p>
+<p>如有问题请直接在 Issues 中提，或者您发现问题并有非常好的解决方案，欢迎 PR</p>
+<p>本着<code>线上线下一样</code>的原则，最好申请两个认证微信公众号，一个是发布使用，一个是本地开发使用。微信自带提供的微信测试功能也不太好用</p>
+</blockquote>
+<h2 id="_8"><a name="user-content-_8" href="#_8" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>开发过程</h2>
+<h3 id="0"><a name="user-content-0" href="#0" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>0.准备</h3>
+<p>请阅读以下微信开发者文档</p>
+<p><a href="https://mp.weixin.qq.com/wiki?t=resource/res_main&amp;id=mp1445241432">首页</a></p>
+<p><a href="https://mp.weixin.qq.com/wiki?t=resource/res_main&amp;id=mp1421137025">开发者规范</a></p>
+<p><a href="https://mp.weixin.qq.com/wiki?t=resource/res_main&amp;id=mp1433401084">公众号接口权限说明</a> </p>
+<p><a href="https://mp.weixin.qq.com/wiki?t=resource/res_main&amp;id=mp1433747234">全局返回码说明</a> </p>
+<h5 id="_9"><a name="user-content-_9" href="#_9" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>附：参数说明</h5>
+<p>appid：公众号唯一标识id（公众号-开发-基本配置中查看）。</p>
+<p>secret：公众号开发密钥（初次请保存本地，忘记请重置）。</p>
+<p>openid: 每个微信用户关注此公众号后会生成openid，并且在此公众号中每个用户得openid是唯一的。</p>
+<p>code ： code作为换取access_token的票据，每次用户授权带上的code将不一样，code只能使用一次，5分钟未被使用自动过期。</p>
+<h3 id="1"><a name="user-content-1" href="#1" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>1.基本配置</h3>
+<blockquote>
+<p>此部分对应文档的 <a href="https://mp.weixin.qq.com/wiki?t=resource/res_main&amp;id=mp1472017492_58YV5">入门指引</a> <a href="https://mp.weixin.qq.com/wiki?t=resource/res_main&amp;id=mp1421135319">接入指南</a></p>
+</blockquote>
+<ol>
+<li>
+<p>基础工具</p>
+<ul>
+<li>一个已经认证的公众号（就是你已经交300元）</li>
+<li>已经备案的域名</li>
+<li>域名解析到服务器 传送门<a href="https://www.jianshu.com/p/c781c108226a">node项目发布+域名及其二级域名配置+nginx反向代理+pm2</a></li>
+<li><a href="https://mp.weixin.qq.com/wiki?t=resource/res_main&amp;id=mp1455784140">微信开发者工具下载</a> : 微信开发可定使用这个工具。必须把前端代码放到》服务器上》用这个工具调试。请仔细阅读<a href="https://mp.weixin.qq.com/wiki?t=resource/res_main&amp;id=mp1455784140">微信web开发者工具 使用指南</a></li>
+</ul>
+</li>
+<li>
+<p>设置<code>web开发者工具</code></p>
+<p>在<code>开发-开发者工具-web开发者工具</code>设置开发者账号</p>
+</li>
+<li>
+<p>设置IP 白名单</p>
+<p>在<code>设置-安全中心-IP白名单设置你服务器的IP</code>，通过开发者ID及密码调用获取access_token接口时，需要设置访问来源IP为白名单。</p>
+</li>
+<li>
+<p>设置基本配置-开发者ID</p>
+<p>设置开发者密码（AppSecret）</p>
+<p><img alt="" src="http://mmbiz.qpic.cn/mmbiz_png/PiajxSqBRaEIQxibpLbyuSK9XkjDgZoL0xagr4UkAdb9oTk6JCzFH4kOIliaI5XZ66ogiaVTAJaX3q6BE3brBOmfOg/0?wx_fmt=png" /></p>
+<p>我们获取到的AppSecret (eg) a66b789009df271cde47aaaaaaa</p>
+</li>
+<li>
+<p>设置服务器基本配置 </p>
+<p>这部的目的是为了和微信服务器建立联系， 通过微信平台实现我们的业务逻辑。</p>
+<p><img alt="" src="/Users/isam2016/su/wechat/img/severmeandwechat.png" /></p>
+<p>详细版：</p>
+<p><img alt="" src="http://mmbiz.qpic.cn/mmbiz_png/PiajxSqBRaEIQxibpLbyuSK9XkjDgZoL0xnC7SUbrIRwI8NhEGFeax6HoPcTMDqKGYxaSoNqBwocrj70Pt1EcKnQ/0?wx_fmt=png" /></p>
+<p>接入微信公众平台开发，开发者需要按照如下步骤完成：</p>
+<p>1、填写服务器配置</p>
+<p>2、验证服务器地址的有效性</p>
+<p>3、依据接口文档实现业务逻辑</p>
+<p>下面详细介绍这3个步骤。</p>
+<p><strong>第一步：填写服务器配置</strong></p>
+<pre><code>* 登录微信公众平台官网后，在公众平台官网的开发-基本设置页面，勾选协议成为开发者，点击“修改配置”按钮、。
+
+* 填写服务器地址（URL）、Token和EncodingAESKey
+
+* URL是开发者用来接收微信消息和事件的接口URL。
+
+* Token可由开发者可以任意填写，用作生成签名（该Token会和接口URL中包含的Token进行比对，从而验证安全性）
+
+* EncodingAESKey由开发者手动填写或随机生成，将用作消息体加解密密钥。
+
+* 同时，开发者可选择消息加解密方式：明文模式、兼容模式和安全模式。模式的选择与服务器配置在提交后都会立即生效
+
+* 加解密方式的默认状态为明文模式，选择兼容模式和安全模式需要提前配置好相关加解密代码
+</code></pre>
+</li>
+</ol>
+<p><img alt="" src="http://mmbiz.qpic.cn/mmbiz/PiajxSqBRaEIQxibpLbyuSK3AXezF3wer8dofQ1JMtIBXKX9HmjE1qk3nlG0vicvB55FVL5kgsGa5RgGKRc9ug87g/0?wx_fmt=png" /></p>
+<p><img alt="" src="/Users/isam2016/su/wechat/img/wechattest.png" /></p>
+<p><strong>第二步：验证消息的确来自微信服务器</strong><br />
+​  <br />
+现在如果你点击<code>确认</code> 按钮，肯定会报认证错误。因为我们没有做<code>微信认证请求</code> 接收。  开发者提交信息后，微信服务器将发送GET请求到<code>填写的服务器地址URL</code>上，GET请求携带参数如下表所示：<br />
+​    </p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>signature</td>
+<td align="left">微信加密签名，signature结合了开发者填写的token参数和请求中的timestamp参数、nonce参数</td>
+</tr>
+<tr>
+<td>nonce</td>
+<td align="left">令客户端重定向至指定URI</td>
+</tr>
+<tr>
+<td>timestamp</td>
+<td align="left">时间戳</td>
+</tr>
+<tr>
+<td>echostr</td>
+<td align="left">随机字符串</td>
+</tr>
+</tbody>
+</table>
+<p>开发者通过检验signature对请求进行校验（下面有校验方式）。若确认此次GET请求来自微信服务器，请原样返回echostr参数内容，则接入生效，成为开发者成功，否则接入失败。加密/校验流程如下：</p>
+<ol>
+<li>将token、timestamp、nonce三个参数进行字典序排序 </li>
+<li>将三个参数字符串拼接成一个字符串进行sha1加密 </li>
+<li>开发者获得加密后的字符串可与signature对比，标识该请求来源于微信</li>
+</ol>
+<p>微信官方提供在文档中提供了PHP原生示例    <a href="https://wximg.gtimg.com/shake_tv/mpwiki/cryptoDemo.zip">PHP原生验证demo</a></p>
+<p><strong>Thinkphp 3.2 验证示例</strong></p>
+<pre><code class="php">&lt;?php
+namespace Home\Controller;//命名空间注意用自己的
+use Think\Controller; //引入Think Controller
+
+/**
+ * Class IndexController
+ * @package Home\Controller
+ * @name 微信服务器验证类
+ * @author weikai
+ */
+class IndexController extends Controller {
+    //微信服务器接入 
+    public function index()
+    {
+        //这个echostr呢  只有说验证的时候才会echo  如果是验证过之后这个echostr是不存在的字段了
+        if($_GET['echostr']){
+            $echoStr = $_GET[&quot;echostr&quot;];
+            if ($this-&gt;checkSignature()) {
+                ob_clean();//防止之前缓存区数据影响
+                echo $echoStr;
+                exit; 
+            }
+        }else{
+            $this-&gt;responseMsg(); //如果没有echostr，则返回消息
+        }
+    }
+    //验证微信开发者模式接入是否成功
+    private function checkSignature()
+    {
+        //signature 是微信传过来的签名
+        $signature = $_GET[&quot;signature&quot;];
+        //微信发过来的时间戳
+        $timestamp = $_GET[&quot;timestamp&quot;];
+        //微信传过来的值随机字符串
+        $nonce     = $_GET[&quot;nonce&quot;];
+        //定义你在微信公众号开发者模式里面定义的token 这里举例为weixin
+        $token  = &quot;weixin&quot;;
+        //三个变量 按照字典排序 形成一个数组
+        $tmpArr = array(
+            $token,
+            $timestamp,
+            $nonce
+        );
+        // 字典排序
+        sort($tmpArr, SORT_STRING);
+        $tmpStr = implode($tmpArr);
+        //哈希加密  在laravel里面是Hash::
+        $tmpStr = sha1($tmpStr);
+        //哈希加密后的数据 和微信服务器传过来的签名比较
+        if ($tmpStr == $signature) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * @name 消息接收
+     * @author weikai
+     */
+    public function responseMsg()//执行接收器方法
+    {
+      //获取微信服务器的XML数据 转化为对象 判断消息类型
+        $postStr = $GLOBALS[&quot;HTTP_RAW_POST_DATA&quot;];
+        if (!empty($postStr)){
+            $postObj = simplexml_load_string($postStr, 'SimpleXMLElement', LIBXML_NOCDATA);
+            $RX_TYPE = trim($postObj-&gt;MsgType);
+            switch($RX_TYPE){
+                case &quot;event&quot;:
+                    $result = $this-&gt;receiveEvent($postObj);
+                    break;
+                case &quot;text&quot;:
+                    $result = $this-&gt;handleText($postObj);
+                    break;
+            }
+            echo $result;
+        }else{
+            echo &quot;&quot;;
+            exit;
+        }
+    }
+
+} //classend
+
+
+
+
+</code></pre>
+
+<p><strong> 注意：示例代码中 Token 要与微信公众号基本配置中的Token 一致 </strong></p>
+<p>微信公众号基本配置中点击启用配置，如果验证失败可能是网络延迟导致，再点击启用多试几次，3次以上不成功，请检查代码。</p>
+<h3 id="2"><a name="user-content-2" href="#2" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>2.网页授权</h3>
+<p><strong>如果使用支付功能，必须先授权</strong></p>
+<p>大家应该经历过，我们在公众号打开页面，一般都会弹出一个按钮需要我们点击同意才会继续浏览页面</p>
+<p><img src="./img/WechatIMG190.jpeg" width = "270"  alt="图片名称" align=center/></p>
+<p>但是我们第二次点击的时候是不需要点击授权的，这两个过程是不同的，是<code>两种授权</code>：（样例不可直接使用，是demo）</p>
+<ul>
+<li>非静默授权的 URL 样例：（<strong>scope=snsapi_userinfo</strong>）</li>
+</ul>
+<blockquote>
+<p>请注意加粗部分</p>
+<p><a href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx841a97238d9e17b2&amp;redirect_uri=http://cps.dianping.com/weiXinRedirect&amp;response_type=code&amp;*">https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx841a97238d9e17b2&amp;redirect_uri=http://cps.dianping.com/weiXinRedirect&amp;response_type=code&amp;*</a><em>scope=snsapi_userinfo</em>*&amp;state=type%3Dquan%2Curl%3Dhttp%3A%2F%2Fmm.dianping.com%2Fweixin%2Faccount%2Fhome</p>
+</blockquote>
+<pre><code>点击`允许`即可带着用户信息跳转到第三方页面，如上图. 
+作用： 是用来获取用户的基本信息的
+</code></pre>
+<ul>
+<li>静默授权的 URL 样例： (<strong>scope=snsapi_base</strong>)</li>
+</ul>
+<blockquote>
+<p>请注意加粗部分</p>
+<p><a href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx841a97238d9e17b2&amp;redirect_uri=http://cps.dianping.com/weiXinRedirect&amp;response_type=code&amp;*">https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx841a97238d9e17b2&amp;redirect_uri=http://cps.dianping.com/weiXinRedirect&amp;response_type=code&amp;*</a><em>scope=snsapi_base</em>*&amp;state=type%3Dquan%2Curl%3Dhttp%3A%2F%2Fmm.dianping.com%2Fweixin%2Faccount%2Fhome</p>
+</blockquote>
+<pre><code>在微信 web 开发者工具中打开类似的授权页 URL 则会`自动跳转`到第三方页面。
+作用：是用来获取进入页面的用户的openid的
+</code></pre>
+<p><strong>网页授权</strong></p>
+<p>请通读<a href="https://mp.weixin.qq.com/wiki?t=resource/res_main&amp;id=mp1421140842">微信网页授权</a></p>
+<blockquote>
+<p>请注意 <em>关于网页授权access_token和普通access_token的区别</em> 章节</p>
+</blockquote>
+<p>具体而言，网页授权流程分为四步：</p>
+<blockquote>
+<p>注意： 步骤一是由前台完成的，前台获取code 之后需要传给后台，由后台完成 2 3 4 </p>
+</blockquote>
+<pre><code>1. 引导用户进入授权页面同意授权，（此时的授权必须snsapi_base授权）获取code
+
+2. 通过code换取网页授权access_token（与基础支持中的access_token不同）
+
+3. 如果需要，开发者可以刷新网页授权access_token，避免过期
+
+4. 通过网页授权access_token和openid获取用户基本信息（支持UnionID机制）
+</code></pre>
+<p><img alt="" src="/Users/isam2016/su/wechat/img/getcode.png" /></p>
+<p><strong>1、引导用户进入授权页面同意授权，获取code</strong></p>
+<p>微信授权是前端发起的，</p>
+<ul>
+<li>
+<p>时机： 是在你需要获取微信信息之前的页面发起请求，当然大部分情况是用户进入webapp 我们就开始授权，我们的dome中就是进入立马授权</p>
+</li>
+<li>
+<p>前台（Vue）： 前台做引导到授权页面，使用location.href 就可以实现。授权过程中会有几次这页面跳转。我们把授权函数放在<code>router.beforeEach((to, from, next)=&gt; {})</code> 函数中，好控制。</p>
+</li>
+<li>
+<p>跳转： 我们刚才提到前台需要引导，这个引导路径是需要后台提供，基本的形式是<code>location.href = http://m.example.com/Home/WxSignature/getBaseInfos?redirect_url=${redirect_url}</code>。要注意<code>redirect_url=${redirect_url}</code>，<code>${redirect_url}</code> 是告诉后台回调到前台的URL.</p>
+</li>
+<li>
+<p>后台（PHP）: 前台调到了后台，后台此时需要获取code了。后台要通过 特定的URL（见官网<code>第一步：用户同意授权，获取code</code>）获取code.</p>
+</li>
+</ul>
+<pre><code>public function getBaseInfos(){
+    $redirect_url = I('get.redirect_url');
+
+    $app_id = C('WX_APPID');
+    $redirect_uri = urlencode($redirect_url);
+    $url = &quot;https://open.weixin.qq.com/connect/oauth2/authorize?appid=&quot;.$app_id.&quot;&amp;redirect_uri=&quot;.$redirect_uri.&quot;&amp;response_type=code&amp;scope=snsapi_userinfo&amp;state=&quot;.$id.&quot;#wechat_redirect&quot;;
+    header('location:'.$url);
+
+}
+</code></pre>
+
+<ul>
+<li>前台获取code</li>
+</ul>
+<p><img alt="" src="/Users/isam2016/su/wechat/img/code.jpeg" /></p>
+<p>前台截取出code 就可以了，传给后台，到这里基本就可以了。但是我们通常是用户每次登陆都需要进行授权，我们判断url中的参数就可以实现了。往往我们也要<code>监听用户是否登录</code>，<code>判断用户是否需要账号密码登录</code>也需要在 <code>router.beforeEach((to, from, next)=&gt; {})</code> 实现，<code>beforeEach()</code>有些复杂了，请大家阅读具体代码。请结合自己具体的业务书写</p>
+<p><strong>2. 通过code换取网页授权access_token</strong></p>
+<pre><code>​
+</code></pre>
+<p><strong>网页授权流程分为四步</strong>：</p>
+<p><strong>1、引导用户进入授权页面同意授权，获取code</strong></p>
+<p>建议：如果路由由vue管理，建议code由前台获取并发送给后台。</p>
+<p><strong>api参数解释：</strong></p>
+<p>appid : 请查看本文 参数说明</p>
+<p>redirect_uri : 回调链接，完成用户授权后微信服务器自动回调得uri，一般为业务首页链接（注意请转义）。</p>
+<p>response_type ： 固定为code 。</p>
+<p>scope ： 授权方式 可选静默（snsapi_base） 或者非静默（snsapi_userinfo）</p>
+<p>state ： 此参数可为业务需求使用，根据业务需要传入。</p>
+<ul>
+<li>静默授权方式获取code：</li>
+</ul>
+<pre><code>https://open.weixin.qq.com/connect/oauth2/authorize?appid=你的appid&amp;redirect_uri=https%3A%2F%2Fchong.qq.com%2Fphp%2Findex.php%3Fd%3D%26c%3DwxAdapter%26m%3DmobileDeal%26showwxpaytitle%3D1%26vb2ctag%3D4_2030_5_1194_60&amp;response_type=code&amp;scope=snsapi_base&amp;state=123#wechat_redirect
+</code></pre>
+
+<ul>
+<li>非静默授权方式获取code：</li>
+</ul>
+<pre><code>https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxf0e81c3bee622d60&amp;redirect_uri=http%3A%2F%2Fnba.bluewebgame.com%2Foauth_response.php&amp;response_type=code&amp;scope=snsapi_userinfo&amp;state=STATE#wechat_redirect
+</code></pre>
+
+<p>PHP 可以使用Curl函数 get 请求获取code</p>
+<p>前端可以使用ajax 发起get请求获取code</p>
+<p><strong>错误返回码说明如下：</strong></p>
+<table>
+<thead>
+<tr>
+<th>返回码</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>10003</td>
+<td>redirect_uri域名与后台配置不一致</td>
+</tr>
+<tr>
+<td>10004</td>
+<td>此公众号被封禁</td>
+</tr>
+<tr>
+<td>10005</td>
+<td>此公众号并没有这些scope的权限</td>
+</tr>
+<tr>
+<td>10006</td>
+<td>必须关注此测试号</td>
+</tr>
+<tr>
+<td>10009</td>
+<td>操作太频繁了，请稍后重试</td>
+</tr>
+<tr>
+<td>10010</td>
+<td>scope不能为空</td>
+</tr>
+<tr>
+<td>10011</td>
+<td>redirect_uri不能为空</td>
+</tr>
+<tr>
+<td>10012</td>
+<td>appid不能为空</td>
+</tr>
+<tr>
+<td>10013</td>
+<td>state不能为空</td>
+</tr>
+<tr>
+<td>10015</td>
+<td>公众号未授权第三方平台，请检查授权状态</td>
+</tr>
+<tr>
+<td>10016</td>
+<td>不支持微信开放平台的Appid，请使用公众号Appid</td>
+</tr>
+</tbody>
+</table>
+<p><strong>2、通过code换取网页授权access_token（与基础支持中的access_token不同）</strong></p>
+<p><strong>请求api参数解释：</strong></p>
+<p>appid : 请查看本文 参数说明</p>
+<p>secret : 请查看本文 参数说明</p>
+<p>code ：获取到得code。</p>
+<p>grant_type ： 固定为authorization_code</p>
+<p>获取code后，请求以下链接获取access_token以及用户得openid：</p>
+<pre><code> https://api.weixin.qq.com/sns/oauth2/access_token?appid=你的appid&amp;secret=你的sercret&amp;code=刚刚获取得code&amp;grant_type=authorization_code
+</code></pre>
+
+<p>PHP 可以使用Curl函数 get 请求获取code</p>
+<pre><code class="php">  /**
+     * 前台传递code,后台存储
+     * @Author   weikai
+     * @DateTime 2017-11-23
+     * @return   [type]     [description]
+     */
+    public function getCode() {
+        $code = I('get.code');//授权用code
+        $appid = C('WX_APPID');//你的公众号appid
+        $secret = C('WX_APPSECRET');//你的公众号secret
+         // 组合获取的url
+            $url=&quot;https://api.weixin.qq.com/sns/oauth2/access_token?                appid=$appid&amp;secret=$secret&amp;code=$code&amp;grant_type=authorization_code&quot;;
+            // curl获取access_token 和openid
+            $result=$this-&gt;curl_get_contents($url);//curl get请求函数请自行百度
+            $result=json_decode($result,true);//json转数组
+            $data['openid']=$result['openid'];
+            $data['access_token'] = $result['access_token'];
+            $data['refresh_token'] = $result['refresh_token'];
+        if($data){
+            return $this-&gt;ajaxReturn(show(1,'获取access_token 和openid',$data));//show()方法为自定义封装消息
+        }else{
+            return $this-&gt;ajaxReturn(show(0,'没有access_token 和openid')); 
+        }
+    }
+</code></pre>
+
+<p>正确时返回的JSON数据包如下：</p>
+<pre><code>{ &quot;access_token&quot;:&quot;ACCESS_TOKEN&quot;,
+&quot;expires_in&quot;:7200,
+&quot;refresh_token&quot;:&quot;REFRESH_TOKEN&quot;,
+&quot;openid&quot;:&quot;OPENID&quot;,
+&quot;scope&quot;:&quot;SCOPE&quot; }
+
+</code></pre>
+
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>access_token</td>
+<td>网页授权接口调用凭证,注意：此access_token与基础支持的access_token不同</td>
+</tr>
+<tr>
+<td>expires_in</td>
+<td>access_token接口调用凭证超时时间，单位（秒）</td>
+</tr>
+<tr>
+<td>refresh_token</td>
+<td>用户刷新access_token</td>
+</tr>
+<tr>
+<td>openid</td>
+<td>用户唯一标识，请注意，在未关注公众号时，用户访问公众号的网页，也会产生一个用户和公众号唯一的OpenID</td>
+</tr>
+<tr>
+<td>scope</td>
+<td>用户授权的作用域，使用逗号（,）分隔</td>
+</tr>
+</tbody>
+</table>
+<p>错误时微信会返回JSON数据包如下（示例为Code无效错误）:</p>
+<pre><code>{&quot;errcode&quot;:40029,&quot;errmsg&quot;:&quot;invalid code&quot;}
+</code></pre>
+
+<p>其实完成第二步就完成了基本的网页授权但是还没有获取到用户的信息，授权也没有实际作用了。</p>
+<p><strong>3、刷新access_token（如果需要）</strong></p>
+<p>由于获取用户信息所用得access_token有效时常比较短，如果想获取access_token后间隔时间较长获取微信用户基本信息请请求刷新access_token api</p>
+<p><strong>请求方法</strong></p>
+<pre><code>获取第二步的refresh_token后，请求以下链接获取access_token：
+https://api.weixin.qq.com/sns/oauth2/refresh_token?appid=APPID&amp;grant_type=refresh_token&amp;refresh_token=REFRESH_TOKEN
+</code></pre>
+
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>是否必须</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>appid</td>
+<td>是</td>
+<td>公众号的唯一标识</td>
+</tr>
+<tr>
+<td>grant_type</td>
+<td>是</td>
+<td>填写为refresh_token</td>
+</tr>
+<tr>
+<td>refresh_token</td>
+<td>是</td>
+<td>填写通过access_token获取到的refresh_token参数</td>
+</tr>
+</tbody>
+</table>
+<p>PHP 可以使用Curl函数 get 请求获取code</p>
+<pre><code class="php">  /**
+     * 刷新access_token
+     * @Author   weikai
+     * @refresh_token 用与刷新access_token的参数
+     * @DateTime 2017-11-23
+     * @return   [type]     [description]
+     */
+    public function reAccessToken($refresh_token) {
+        $appid = C('WX_APPID');//你的公众号appid
+         // 组合获取的url
+            $url=&quot;https://api.weixin.qq.com/sns/oauth2/refresh_token?appid=$appid&amp;grant_type=refresh_token&amp;refresh_token=$refresh_token&quot;;
+            // curl请求刷新access_token 
+            $result=$this-&gt;curl_get_contents($url);//curl get请求函数请自行百度
+            $result=json_decode($result,true);//json转数组
+            $data['access_token'] = $result['access_token'];
+        if($data){
+            return $this-&gt;ajaxReturn(show(1,'获取access_token' ,$data));//show()方法为自定义封装消息
+        }else{
+            return $this-&gt;ajaxReturn(show(0,'没有access_token')); 
+        }
+    }
+</code></pre>
+
+<p>返回说明</p>
+<p>正确时返回的JSON数据包如下：</p>
+<pre><code>{ &quot;access_token&quot;:&quot;ACCESS_TOKEN&quot;,
+&quot;expires_in&quot;:7200,
+&quot;refresh_token&quot;:&quot;REFRESH_TOKEN&quot;,
+&quot;openid&quot;:&quot;OPENID&quot;,
+&quot;scope&quot;:&quot;SCOPE&quot; }
+
+</code></pre>
+
+<p>和上步返回的数据相同，目的就是刷新了access_token 的有效时间，有效期内可以使用access_token 和openid获取微信用户信息</p>
+<p><strong>4、通过网页授权access_token和openid获取用户基本信息</strong></p>
+<p>如果网页授权参数为snsapi_userinfo（非静默授权），则此时可以通过access_token和openid获取用户信息了。</p>
+<p>请求方法</p>
+<pre><code>http：GET（请使用https协议） https://api.weixin.qq.com/sns/userinfo?access_token=ACCESS_TOKEN&amp;openid=OPENID&amp;lang=zh_CN
+
+</code></pre>
+
+<p>参数说明</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>access_token</td>
+<td>网页授权接口调用凭证,注意：此access_token与基础支持的access_token不同</td>
+</tr>
+<tr>
+<td>openid</td>
+<td>用户的唯一标识</td>
+</tr>
+<tr>
+<td>lang</td>
+<td>返回国家地区语言版本，zh_CN 简体，zh_TW 繁体，en 英语</td>
+</tr>
+</tbody>
+</table>
+<p><strong>PHP示例</strong></p>
+<pre><code class="php">    /**
+     * @return mixed
+     * @name 获取用户详细信息 
+     * @author weikai
+     */
+    public function getWxUserInfo($openid,$access_token,$refresh_token){
+        $url = &quot;https://api.weixin.qq.com/cgi-bin/user/info?access_token=&quot;.$access_token.&quot;&amp;openid=&quot;.$openid.&quot;&amp;lang=zh_CN&quot;;
+        $data = $this-&gt;cUrl($url);
+        $data = json_decode($data);
+      //如果access_token 失效导致获取失败就刷新access_token 重新获取
+        if(!$data){
+          $access_token  = $this-&gt;reAccessToken($refresh_token);
+          $data = $this-&gt;getWxUserInfo($openid,$access_token,$refresh_token)
+        }else{
+          return $data;  
+        }
+
+    }
+</code></pre>
+
+<p>返回说明</p>
+<p>正确时返回的JSON数据包如下：</p>
+<pre><code>{    &quot;openid&quot;:&quot; OPENID&quot;,
+&quot; nickname&quot;: NICKNAME,
+&quot;sex&quot;:&quot;1&quot;,
+&quot;province&quot;:&quot;PROVINCE&quot;
+&quot;city&quot;:&quot;CITY&quot;,
+&quot;country&quot;:&quot;COUNTRY&quot;,
+&quot;headimgurl&quot;:    &quot;http://thirdwx.qlogo.cn/mmopen/g3MonUZtNHkdmzicIlibx6iaFqAc56vxLSUfpb6n5WKSYVY0ChQKkiaJSgQ1dZuTOgvLLrhJbERQQ4eMsv84eavHiaiceqxibJxCfHe/46&quot;,
+&quot;privilege&quot;:[ &quot;PRIVILEGE1&quot; &quot;PRIVILEGE2&quot;     ],
+&quot;unionid&quot;: &quot;o6_bmasdasdsad6_2sgVt7hMZOPfL&quot;
+}
+
+</code></pre>
+
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>openid</td>
+<td>用户的唯一标识</td>
+</tr>
+<tr>
+<td>nickname</td>
+<td>用户昵称</td>
+</tr>
+<tr>
+<td>sex</td>
+<td>用户的性别，值为1时是男性，值为2时是女性，值为0时是未知</td>
+</tr>
+<tr>
+<td>province</td>
+<td>用户个人资料填写的省份</td>
+</tr>
+<tr>
+<td>city</td>
+<td>普通用户个人资料填写的城市</td>
+</tr>
+<tr>
+<td>country</td>
+<td>国家，如中国为CN</td>
+</tr>
+<tr>
+<td>headimgurl</td>
+<td>用户头像，最后一个数值代表正方形头像大小（有0、46、64、96、132数值可选，0代表640*640正方形头像），用户没有头像时该项为空。若用户更换头像，原有头像URL将失效。</td>
+</tr>
+<tr>
+<td>privilege</td>
+<td>用户特权信息，json 数组，如微信沃卡用户为（chinaunicom）</td>
+</tr>
+<tr>
+<td>unionid</td>
+<td>只有在用户将公众号绑定到微信开放平台帐号后，才会出现该字段。</td>
+</tr>
+</tbody>
+</table>
+<p>错误时微信会返回JSON数据包如下（示例为openid无效）:</p>
+<pre><code>{&quot;errcode&quot;:40003,&quot;errmsg&quot;:&quot; invalid openid &quot;}
+
+</code></pre></article></body></html>

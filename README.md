@@ -82,7 +82,7 @@ npm run build
 
 [全局返回码说明](https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1433747234) 
 
-### 附：参数说明
+##### 附：参数说明
 
 appid：公众号唯一标识id（公众号-开发-基本配置中查看）。
 
@@ -182,13 +182,6 @@ code ： code作为换取access_token的票据，每次用户授权带上的code
 3. 开发者获得加密后的字符串可与signature对比，标识该请求来源于微信
 
 
-请后台继续填写
-
-原则： 
-1 提供示例代码，和位置
-
-2. 可以把中科的公众号清空，一步一步的演示
-3. 注意拿各种认证数据（如openid ）的顺序和时间，最好提供图标说明
 
 
 微信官方提供在文档中提供了PHP原生示例    [PHP原生验证demo](https://wximg.gtimg.com/shake_tv/mpwiki/cryptoDemo.zip)
@@ -285,11 +278,12 @@ class IndexController extends Controller {
 
 ```
 
-**注意：示例代码中 Token 要与微信公众号基本配置中的Token 一致 **
+** 注意：示例代码中 Token 要与微信公众号基本配置中的Token 一致 **
+
 
 微信公众号基本配置中点击启用配置，如果验证失败可能是网络延迟导致，再点击启用多试几次，3次以上不成功，请检查代码。
 
-### 2.网页授权（共同完成）
+### 2.网页授权
 
 **如果使用支付功能，必须先授权**
 
@@ -318,6 +312,13 @@ class IndexController extends Controller {
     在微信 web 开发者工具中打开类似的授权页 URL 则会`自动跳转`到第三方页面。
     作用：是用来获取进入页面的用户的openid的
 
+>注意：俩者授权区别 
+
+>非静默授权:可获取微信用户基础信息如 用户微信昵称 、城市、语言、头像、关注公众号时间、openid等。
+
+>静默授权：用户体验好，用户不知觉间完成授权，但只可以获取到用户得openid。
+
+<hr>
 
 **网页授权**
 
@@ -325,13 +326,10 @@ class IndexController extends Controller {
 >请注意 *关于网页授权access_token和普通access_token的区别* 章节
 
 
-
-
-
 具体而言，网页授权流程分为四步：
 >注意： 步骤一是由前台完成的，前台获取code 之后需要传给后台，由后台完成 2 3 4 
 
-    1. 引导用户进入授权页面同意授权，（此时的授权必须snsapi_base授权）获取code
+    1. 引导用户进入授权页面同意授权获取code
 
     2. 通过code换取网页授权access_token（与基础支持中的access_token不同）
 
@@ -343,15 +341,35 @@ class IndexController extends Controller {
 
 **1、引导用户进入授权页面同意授权，获取code**
 
+建议：如果路由由vue管理，建议code由前台获取并发送给后台。
+
+
 微信授权是前端发起的，
 
 * 时机： 是在你需要获取微信信息之前的页面发起请求，当然大部分情况是用户进入webapp 我们就开始授权，我们的dome中就是进入立马授权
 
 * 前台（Vue）： 前台做引导到授权页面，使用location.href 就可以实现。授权过程中会有几次这页面跳转。我们把授权函数放在` router.beforeEach((to, from, next)=> {})` 函数中，好控制。
 
-* 跳转： 我们刚才提到前台需要引导，这个引导路径是需要后台提供，基本的形式是`location.href = http://m.example.com/Home/WxSignature/getBaseInfos?redirect_url=${redirect_url}`。要注意`redirect_url=${redirect_url}`，`${redirect_url}` 是告诉后台回调到前台的URL.
+* 跳转： 我们刚才提到前台需要引导，这个引导路径是需要后台提供，基本的形式是`location.href = http://m.example.com/Home/WxSignature/getBaseInfos?redirect_url=${redirect_url}`。要注意`redirect_url=${redirect_url}`，`${redirect_url}` 是告诉后台回调到前台的URL(请encodeURIComponent).
+
 
 * 后台（PHP）: 前台调到了后台，后台此时需要获取code了。后台要通过 特定的URL（见官网`第一步：用户同意授权，获取code`）获取code.
+
+    **api参数解释：**
+
+    * appid : 请查看本文 参数说明
+
+    * redirect_uri : 回调链接，完成用户授权后微信服务器自动回调得uri，一般为业务首页链接（注意请转义）。
+
+    * response_type ： 固定为code 。
+
+    * scope ： 授权方式 可选静默（snsapi_base） 或者非静默（snsapi_userinfo）
+
+    * state ： 此参数可为业务需求使用，根据业务需要传入。
+
+    * 静默授权方式获取code： `https://open.weixin.qq.com/connect/oauth2/authorize?appid=你的appid&redirect_uri=https%3A%2F%2Fchong.qq.com%2Fphp%2Findex.php%3Fd%3D%26c%3DwxAdapter%26m%3DmobileDeal%26showwxpaytitle%3D1%26vb2ctag%3D4_2030_5_1194_60&response_type=code&scope=snsapi_base&state=123#wechat_redirect`
+
+    * 非静默授权方式获取code：`https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxf0e81c3bee622d60&redirect_uri=http%3A%2F%2Fnba.bluewebgame.com%2Foauth_response.php&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect`
 
 ```
 public function getBaseInfos(){
@@ -365,60 +383,7 @@ public function getBaseInfos(){
 }
 ```
 
-* 前台获取code
-
-![](./img/code.jpeg)
-
-前台截取出code 就可以了，传给后台，到这里基本就可以了。但是我们通常是用户每次登陆都需要进行授权，我们判断url中的参数就可以实现了。往往我们也要`监听用户是否登录`，`判断用户是否需要账号密码登录`也需要在 `router.beforeEach((to, from, next)=> {})` 实现，`beforeEach()`有些复杂了，请大家阅读具体代码。请结合自己具体的业务书写
-
-
-**2. 通过code换取网页授权access_token**
-
-
-    ​
-
-    **注意：俩者授权区别 **
-
-    非静默授权:可获取微信用户基础信息如 用户微信昵称 、城市、语言、头像、关注公众号时间、openid等。
-
-    静默授权：用户体验好，用户不知觉间完成授权，但只可以获取到用户得openid。
-
-
-
-
-**网页授权流程分为四步**：
-
-**1、引导用户进入授权页面同意授权，获取code**
-
-建议：如果路由由vue管理，建议code由前台获取并发送给后台。
-
-**api参数解释：**
-
-appid : 请查看本文 参数说明
-
-redirect_uri : 回调链接，完成用户授权后微信服务器自动回调得uri，一般为业务首页链接（注意请转义）。
-
-response_type ： 固定为code 。
-
-scope ： 授权方式 可选静默（snsapi_base） 或者非静默（snsapi_userinfo）
-
-state ： 此参数可为业务需求使用，根据业务需要传入。
-
-- 静默授权方式获取code：
-
-```
-https://open.weixin.qq.com/connect/oauth2/authorize?appid=你的appid&redirect_uri=https%3A%2F%2Fchong.qq.com%2Fphp%2Findex.php%3Fd%3D%26c%3DwxAdapter%26m%3DmobileDeal%26showwxpaytitle%3D1%26vb2ctag%3D4_2030_5_1194_60&response_type=code&scope=snsapi_base&state=123#wechat_redirect
-```
-
-- 非静默授权方式获取code：
-
-```
-https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxf0e81c3bee622d60&redirect_uri=http%3A%2F%2Fnba.bluewebgame.com%2Foauth_response.php&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect
-```
-
 PHP 可以使用Curl函数 get 请求获取code
-
-前端可以使用ajax 发起get请求获取code
 
 **错误返回码说明如下：**
 
@@ -435,6 +400,16 @@ PHP 可以使用Curl函数 get 请求获取code
 | 10013 | state不能为空                   |
 | 10015 | 公众号未授权第三方平台，请检查授权状态         |
 | 10016 | 不支持微信开放平台的Appid，请使用公众号Appid |
+
+
+
+* 前台获取code
+
+![](./img/code.jpeg)
+
+前台截取出code 就可以了，传给后台，到这里基本就可以了。但是我们通常是用户每次登陆都需要进行授权，我们判断url中的参数就可以实现了。往往我们也要`监听用户是否登录`，`判断用户是否需要账号密码登录`也需要在 `router.beforeEach((to, from, next)=> {})` 实现，`beforeEach()`有些复杂了，请大家阅读具体代码。请结合自己具体的业务书写
+
+
 
 **2、通过code换取网页授权access_token（与基础支持中的access_token不同）**
 
@@ -654,6 +629,7 @@ http：GET（请使用https协议） https://api.weixin.qq.com/sns/userinfo?acce
 {"errcode":40003,"errmsg":" invalid openid "}
 
 ```
+
 
 
 
