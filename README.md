@@ -1,4 +1,5 @@
 # wechat
+
 >手把手实现微信网页授权和微信支付，附源代码（VUE and thinkPHP）
 
 ## 概述
@@ -8,7 +9,7 @@
 **我们叙述的过程是按`开发流程`进行叙述的，不会是按照`开发文档`的形式叙述，希望您能结合[微信的开发文档](https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1445241432)一起阅读，当然在流程中我们会提醒你阅读的部分**
 
 主要模块：
-    
+​    
     1. 微信授权
     2. 微信公众号支付
     3. 消息推送(PHP)
@@ -19,15 +20,15 @@
 
 #### 解决的问题
 
-- [x]  微信网页授权
-- [x]  公众号支付
-- [x]  公众号分享
-- [x]  公众号扫一扫
-- [x]  微信后台获取webapp(spa-vue)路由，导致 invalid 问题
-- [x]  前端history.pushState()导致ios失效问题
-- [x]  换取微信openID 顺序问题
-- [x]  网页授权后强制登录官网账户，全局进行拦截
-- [x]  前端反向代理
+- [x] 微信网页授权
+- [x] 公众号支付
+- [x] 公众号分享
+- [x] 公众号扫一扫
+- [x] 微信后台获取webapp(spa-vue)路由，导致 invalid 问题
+- [x] 前端history.pushState()导致ios失效问题
+- [x] 换取微信openID 顺序问题
+- [x] 网页授权后强制登录官网账户，全局进行拦截
+- [x] 前端反向代理
 
 
 ####  前端技术栈
@@ -69,7 +70,7 @@ npm run build
 ## 开发过程
 
 ### 0.准备
-    
+
 请阅读以下微信开发者文档
 
 [首页](https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1445241432)
@@ -80,11 +81,22 @@ npm run build
 
 [全局返回码说明](https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1433747234) 
 
+### 附：参数说明
+
+appid：公众号唯一标识id（公众号-开发-基本配置中查看）。
+
+secret：公众号开发密钥（初次请保存本地，忘记请重置）。
+
+openid: 每个微信用户关注此公众号后会生成openid，并且在此公众号中每个用户得openid是唯一的。
+
+code ： code作为换取access_token的票据，每次用户授权带上的code将不一样，code只能使用一次，5分钟未被使用自动过期。
+
 ### 1.基本配置
+
 >  此部分对应文档的 [入门指引](https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1472017492_58YV5) [接入指南](https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421135319)
 
 1. 基础工具
-    
+
     * 一个已经认证的公众号（就是你已经交300元）
     * 已经备案的域名
     * 域名解析到服务器 传送门[node项目发布+域名及其二级域名配置+nginx反向代理+pm2](https://www.jianshu.com/p/c781c108226a)
@@ -95,21 +107,21 @@ npm run build
     在`开发-开发者工具-web开发者工具`设置开发者账号
 
 3. 设置IP 白名单
-    
+
     在`设置-安全中心-IP白名单设置你服务器的IP`，通过开发者ID及密码调用获取access_token接口时，需要设置访问来源IP为白名单。
 
 4. 设置基本配置-开发者ID
-    
+
     设置开发者密码（AppSecret）
 
     ![](http://mmbiz.qpic.cn/mmbiz_png/PiajxSqBRaEIQxibpLbyuSK9XkjDgZoL0xagr4UkAdb9oTk6JCzFH4kOIliaI5XZ66ogiaVTAJaX3q6BE3brBOmfOg/0?wx_fmt=png)
 
     我们获取到的AppSecret (eg) a66b789009df271cde47aaaaaaa
- 
+
 5. 设置服务器基本配置 
-    
+
     这部的目的是为了和微信服务器建立联系， 通过微信平台实现我们的业务逻辑。
-    
+
     ![](./img/severmeandwechat.png)
 
     详细版：
@@ -145,15 +157,15 @@ npm run build
 
 
 
-     
+
 ![](http://mmbiz.qpic.cn/mmbiz/PiajxSqBRaEIQxibpLbyuSK3AXezF3wer8dofQ1JMtIBXKX9HmjE1qk3nlG0vicvB55FVL5kgsGa5RgGKRc9ug87g/0?wx_fmt=png)
 
 ![](./img/wechattest.png)
 
   **第二步：验证消息的确来自微信服务器**
-    
+​    
 现在如果你点击`确认` 按钮，肯定会报认证错误。因为我们没有做`微信认证请求` 接收。  开发者提交信息后，微信服务器将发送GET请求到`填写的服务器地址URL`上，GET请求携带参数如下表所示：
-    
+​    
 
 |        参数        | 描述       |
 | :--------------  |:--------- |
@@ -170,11 +182,111 @@ npm run build
 
 
 请后台继续填写
+
 原则： 
 1 提供示例代码，和位置
+
 2. 可以把中科的公众号清空，一步一步的演示
 3. 注意拿各种认证数据（如openid ）的顺序和时间，最好提供图标说明
 
+
+微信官方提供在文档中提供了PHP原生示例    [PHP原生验证demo](https://wximg.gtimg.com/shake_tv/mpwiki/cryptoDemo.zip)
+
+**Thinkphp 3.2 验证示例**
+
+```php
+<?php
+namespace Home\Controller;//命名空间注意用自己的
+use Think\Controller; //引入Think Controller
+
+/**
+ * Class IndexController
+ * @package Home\Controller
+ * @name 微信服务器验证类
+ * @author weikai
+ */
+class IndexController extends Controller {
+	//微信服务器接入 
+    public function index()
+    {
+        //这个echostr呢  只有说验证的时候才会echo  如果是验证过之后这个echostr是不存在的字段了
+        if($_GET['echostr']){
+            $echoStr = $_GET["echostr"];
+            if ($this->checkSignature()) {
+                ob_clean();//防止之前缓存区数据影响
+                echo $echoStr;
+                exit; 
+            }
+        }else{
+            $this->responseMsg(); //如果没有echostr，则返回消息
+        }
+    }
+    //验证微信开发者模式接入是否成功
+    private function checkSignature()
+    {
+        //signature 是微信传过来的签名
+        $signature = $_GET["signature"];
+        //微信发过来的时间戳
+        $timestamp = $_GET["timestamp"];
+        //微信传过来的值随机字符串
+        $nonce     = $_GET["nonce"];
+        //定义你在微信公众号开发者模式里面定义的token 这里举例为weixin
+        $token  = "weixin";
+        //三个变量 按照字典排序 形成一个数组
+        $tmpArr = array(
+            $token,
+            $timestamp,
+            $nonce
+        );
+        // 字典排序
+        sort($tmpArr, SORT_STRING);
+        $tmpStr = implode($tmpArr);
+        //哈希加密  在laravel里面是Hash::
+        $tmpStr = sha1($tmpStr);
+        //哈希加密后的数据 和微信服务器传过来的签名比较
+        if ($tmpStr == $signature) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * @name 消息接收
+     * @author weikai
+     */
+    public function responseMsg()//执行接收器方法
+    {
+      //获取微信服务器的XML数据 转化为对象 判断消息类型
+        $postStr = $GLOBALS["HTTP_RAW_POST_DATA"];
+        if (!empty($postStr)){
+            $postObj = simplexml_load_string($postStr, 'SimpleXMLElement', LIBXML_NOCDATA);
+            $RX_TYPE = trim($postObj->MsgType);
+            switch($RX_TYPE){
+                case "event":
+                    $result = $this->receiveEvent($postObj);
+                    break;
+                case "text":
+                    $result = $this->handleText($postObj);
+                    break;
+            }
+            echo $result;
+        }else{
+            echo "";
+            exit;
+        }
+    }
+
+} //classend
+
+
+
+
+```
+
+**注意：示例代码中 Token 要与微信公众号基本配置中的Token 一致 **
+
+微信公众号基本配置中点击启用配置，如果验证失败可能是网络延迟导致，再点击启用多试几次，3次以上不成功，请检查代码。
 
 ### 2.网页授权（共同完成）
 
@@ -198,6 +310,285 @@ npm run build
 
     在微信 web 开发者工具中打开类似的授权页 URL 则会`自动跳转`到第三方页面。
 
+    ​
+
+    **注意：俩者授权区别 **
+
+    非静默授权:可获取微信用户基础信息如 用户微信昵称 、城市、语言、头像、关注公众号时间、openid等。
+
+    静默授权：用户体验好，用户不知觉间完成授权，但只可以获取到用户得openid。
+
+
+
+
+**网页授权流程分为四步**：
+
+**1、引导用户进入授权页面同意授权，获取code**
+
+建议：如果路由由vue管理，建议code由前台获取并发送给后台。
+
+**api参数解释：**
+
+appid : 请查看本文 参数说明
+
+redirect_uri : 回调链接，完成用户授权后微信服务器自动回调得uri，一般为业务首页链接（注意请转义）。
+
+response_type ： 固定为code 。
+
+scope ： 授权方式 可选静默（snsapi_base） 或者非静默（snsapi_userinfo）
+
+state ： 此参数可为业务需求使用，根据业务需要传入。
+
+- 静默授权方式获取code：
+
+```
+https://open.weixin.qq.com/connect/oauth2/authorize?appid=你的appid&redirect_uri=https%3A%2F%2Fchong.qq.com%2Fphp%2Findex.php%3Fd%3D%26c%3DwxAdapter%26m%3DmobileDeal%26showwxpaytitle%3D1%26vb2ctag%3D4_2030_5_1194_60&response_type=code&scope=snsapi_base&state=123#wechat_redirect
+```
+
+- 非静默授权方式获取code：
+
+```
+https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxf0e81c3bee622d60&redirect_uri=http%3A%2F%2Fnba.bluewebgame.com%2Foauth_response.php&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect
+```
+
+PHP 可以使用Curl函数 get 请求获取code
+
+前端可以使用ajax 发起get请求获取code
+
+**错误返回码说明如下：**
+
+| 返回码   | 说明                          |
+| ----- | --------------------------- |
+| 10003 | redirect_uri域名与后台配置不一致      |
+| 10004 | 此公众号被封禁                     |
+| 10005 | 此公众号并没有这些scope的权限           |
+| 10006 | 必须关注此测试号                    |
+| 10009 | 操作太频繁了，请稍后重试                |
+| 10010 | scope不能为空                   |
+| 10011 | redirect_uri不能为空            |
+| 10012 | appid不能为空                   |
+| 10013 | state不能为空                   |
+| 10015 | 公众号未授权第三方平台，请检查授权状态         |
+| 10016 | 不支持微信开放平台的Appid，请使用公众号Appid |
+
+**2、通过code换取网页授权access_token（与基础支持中的access_token不同）**
+
+**请求api参数解释：**
+
+appid : 请查看本文 参数说明
+
+secret : 请查看本文 参数说明
+
+code ：获取到得code。
+
+grant_type ： 固定为authorization_code
+
+
+
+获取code后，请求以下链接获取access_token以及用户得openid：
+
+```
+ https://api.weixin.qq.com/sns/oauth2/access_token?appid=你的appid&secret=你的sercret&code=刚刚获取得code&grant_type=authorization_code
+```
+
+PHP 可以使用Curl函数 get 请求获取code
+
+```php
+  /**
+     * 前台传递code,后台存储
+     * @Author   weikai
+     * @DateTime 2017-11-23
+     * @return   [type]     [description]
+     */
+    public function getCode() {
+        $code = I('get.code');//授权用code
+        $appid = C('WX_APPID');//你的公众号appid
+        $secret = C('WX_APPSECRET');//你的公众号secret
+         // 组合获取的url
+            $url="https://api.weixin.qq.com/sns/oauth2/access_token?				appid=$appid&secret=$secret&code=$code&grant_type=authorization_code";
+            // curl获取access_token 和openid
+            $result=$this->curl_get_contents($url);//curl get请求函数请自行百度
+            $result=json_decode($result,true);//json转数组
+            $data['openid']=$result['openid'];
+      	    $data['access_token'] = $result['access_token'];
+      		$data['refresh_token'] = $result['refresh_token'];
+        if($data){
+            return $this->ajaxReturn(show(1,'获取access_token 和openid',$data));//show()方法为自定义封装消息
+        }else{
+            return $this->ajaxReturn(show(0,'没有access_token 和openid')); 
+        }
+    }
+```
+
+
+
+正确时返回的JSON数据包如下：
+
+```
+{ "access_token":"ACCESS_TOKEN",
+"expires_in":7200,
+"refresh_token":"REFRESH_TOKEN",
+"openid":"OPENID",
+"scope":"SCOPE" }
+
+```
+
+| 参数            | 描述                                       |
+| ------------- | ---------------------------------------- |
+| access_token  | 网页授权接口调用凭证,注意：此access_token与基础支持的access_token不同 |
+| expires_in    | access_token接口调用凭证超时时间，单位（秒）             |
+| refresh_token | 用户刷新access_token                         |
+| openid        | 用户唯一标识，请注意，在未关注公众号时，用户访问公众号的网页，也会产生一个用户和公众号唯一的OpenID |
+| scope         | 用户授权的作用域，使用逗号（,）分隔                       |
+
+错误时微信会返回JSON数据包如下（示例为Code无效错误）:
+
+```
+{"errcode":40029,"errmsg":"invalid code"}
+```
+
+其实完成第二步就完成了基本的网页授权但是还没有获取到用户的信息，授权也没有实际作用了。
+
+**3、刷新access_token（如果需要）**
+
+由于获取用户信息所用得access_token有效时常比较短，如果想获取access_token后间隔时间较长获取微信用户基本信息请请求刷新access_token api
+
+**请求方法**
+
+```
+获取第二步的refresh_token后，请求以下链接获取access_token：
+https://api.weixin.qq.com/sns/oauth2/refresh_token?appid=APPID&grant_type=refresh_token&refresh_token=REFRESH_TOKEN
+```
+
+| 参数            | 是否必须 | 说明                                  |
+| ------------- | ---- | ----------------------------------- |
+| appid         | 是    | 公众号的唯一标识                            |
+| grant_type    | 是    | 填写为refresh_token                    |
+| refresh_token | 是    | 填写通过access_token获取到的refresh_token参数 |
+
+PHP 可以使用Curl函数 get 请求获取code
+
+```php
+  /**
+     * 刷新access_token
+     * @Author   weikai
+     * @refresh_token 用与刷新access_token的参数
+     * @DateTime 2017-11-23
+     * @return   [type]     [description]
+     */
+    public function reAccessToken($refresh_token) {
+        $appid = C('WX_APPID');//你的公众号appid
+         // 组合获取的url
+            $url="https://api.weixin.qq.com/sns/oauth2/refresh_token?appid=$appid&grant_type=refresh_token&refresh_token=$refresh_token";
+            // curl请求刷新access_token 
+            $result=$this->curl_get_contents($url);//curl get请求函数请自行百度
+            $result=json_decode($result,true);//json转数组
+      	    $data['access_token'] = $result['access_token'];
+        if($data){
+            return $this->ajaxReturn(show(1,'获取access_token' ,$data));//show()方法为自定义封装消息
+        }else{
+            return $this->ajaxReturn(show(0,'没有access_token')); 
+        }
+    }
+```
+
+
+
+返回说明
+
+正确时返回的JSON数据包如下：
+
+```
+{ "access_token":"ACCESS_TOKEN",
+"expires_in":7200,
+"refresh_token":"REFRESH_TOKEN",
+"openid":"OPENID",
+"scope":"SCOPE" }
+
+```
+
+和上步返回的数据相同，目的就是刷新了access_token 的有效时间，有效期内可以使用access_token 和openid获取微信用户信息
+
+**4、通过网页授权access_token和openid获取用户基本信息**
+
+如果网页授权参数为snsapi_userinfo（非静默授权），则此时可以通过access_token和openid获取用户信息了。
+
+请求方法
+
+```
+http：GET（请使用https协议） https://api.weixin.qq.com/sns/userinfo?access_token=ACCESS_TOKEN&openid=OPENID&lang=zh_CN
+
+```
+
+参数说明
+
+| 参数           | 描述                                       |
+| ------------ | ---------------------------------------- |
+| access_token | 网页授权接口调用凭证,注意：此access_token与基础支持的access_token不同 |
+| openid       | 用户的唯一标识                                  |
+| lang         | 返回国家地区语言版本，zh_CN 简体，zh_TW 繁体，en 英语       |
+
+**PHP示例**
+
+```php
+	/**
+     * @return mixed
+     * @name 获取用户详细信息 
+     * @author weikai
+     */
+    public function getWxUserInfo($openid,$access_token,$refresh_token){
+        $url = "https://api.weixin.qq.com/cgi-bin/user/info?access_token=".$access_token."&openid=".$openid."&lang=zh_CN";
+        $data = $this->cUrl($url);
+        $data = json_decode($data);
+      //如果access_token 失效导致获取失败就刷新access_token 重新获取
+        if(!$data){
+          $access_token  = $this->reAccessToken($refresh_token);
+          $data = $this->getWxUserInfo($openid,$access_token,$refresh_token)
+        }else{
+          return $data;  
+        }
+        
+    }
+```
+
+
+
+返回说明
+
+正确时返回的JSON数据包如下：
+
+```
+{    "openid":" OPENID",
+" nickname": NICKNAME,
+"sex":"1",
+"province":"PROVINCE"
+"city":"CITY",
+"country":"COUNTRY",
+"headimgurl":    "http://thirdwx.qlogo.cn/mmopen/g3MonUZtNHkdmzicIlibx6iaFqAc56vxLSUfpb6n5WKSYVY0ChQKkiaJSgQ1dZuTOgvLLrhJbERQQ4eMsv84eavHiaiceqxibJxCfHe/46",
+"privilege":[ "PRIVILEGE1" "PRIVILEGE2"     ],
+"unionid": "o6_bmasdasdsad6_2sgVt7hMZOPfL"
+}
+
+```
+
+| 参数         | 描述                                       |
+| ---------- | ---------------------------------------- |
+| openid     | 用户的唯一标识                                  |
+| nickname   | 用户昵称                                     |
+| sex        | 用户的性别，值为1时是男性，值为2时是女性，值为0时是未知            |
+| province   | 用户个人资料填写的省份                              |
+| city       | 普通用户个人资料填写的城市                            |
+| country    | 国家，如中国为CN                                |
+| headimgurl | 用户头像，最后一个数值代表正方形头像大小（有0、46、64、96、132数值可选，0代表640*640正方形头像），用户没有头像时该项为空。若用户更换头像，原有头像URL将失效。 |
+| privilege  | 用户特权信息，json 数组，如微信沃卡用户为（chinaunicom）     |
+| unionid    | 只有在用户将公众号绑定到微信开放平台帐号后，才会出现该字段。           |
+
+错误时微信会返回JSON数据包如下（示例为openid无效）:
+
+```
+{"errcode":40003,"errmsg":" invalid openid "}
+
+```
 
 前端部分： 
 
