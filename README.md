@@ -159,7 +159,7 @@ code ： code作为换取access_token的票据，每次用户授权带上的code
 
 
 
-![](http://mmbiz.qpic.cn/mmbiz/PiajxSqBRaEIQxibpLbyuSK3AXezF3wer8dofQ1JMtIBXKX9HmjE1qk3nlG0vicvB55FVL5kgsGa5RgGKRc9ug87g/0?wx_fmt=png)
+<!-- ![](http://mmbiz.qpic.cn/mmbiz/PiajxSqBRaEIQxibpLbyuSK3AXezF3wer8dofQ1JMtIBXKX9HmjE1qk3nlG0vicvB55FVL5kgsGa5RgGKRc9ug87g/0?wx_fmt=png) -->
 
 ![](./img/wechattest.png)
 
@@ -341,7 +341,7 @@ class IndexController extends Controller {
 
 **1、引导用户进入授权页面同意授权，获取code**
 
-建议：如果路由由vue管理，建议code由前台获取并发送给后台。
+建议：如果路由由vue管理，建议code由前台获取并发送给后台。 **在公众账号中配置授权回调域名（${redirect_url}看下面）**
 
 
 微信授权是前端发起的，
@@ -410,6 +410,73 @@ PHP 可以使用Curl函数 get 请求获取code
 前台截取出code 就可以了，传给后台，到这里基本就可以了。但是我们通常是用户每次登陆都需要进行授权，我们判断url中的参数就可以实现了。往往我们也要`监听用户是否登录`，`判断用户是否需要账号密码登录`也需要在 `router.beforeEach((to, from, next)=> {})` 实现，`beforeEach()`有些复杂了，请大家阅读具体代码。请结合自己具体的业务书写
 
 
+```
+
+/**
+ * 判断用户是否需要账号密码登录，login页面监听
+ * @Author   Hybrid
+ * @DateTime 2018-02-28
+ */
+let checkIsLoginGotologin = function(to, next) {
+    // isRelation 判断用户微信账户是否关联官网账户
+    // routeArr 是一些路由是不需要受监听的
+  isRelation().then(res => {
+    if (routeArr.includes(to.path)) {
+      !res ? next('index') : next();
+    } else {
+      // 没有登录且不是登录页                             // 当在登录的情况下是不允许访问login页面
+      (res && to.path !== '/login') ? next('/login'): ((!res && to.path === '/login') ? next('index') : next())
+    }
+
+  })
+}
+
+/**
+ * 获取和推送code
+ * @Author   Hybrid
+ * @DateTime 2018-02-28
+ * @param    {}   url 路径   
+ */
+let getCodePullCode = async function(url) {
+  let mycode = url.substring(url.indexOf('code=') + 5, url.indexOf('state=') - 1);
+  selfStore.set('wechatCodeStr', mycode); // 存储code
+  await axios
+    .get("/home/WxSignature/getCode", {
+      params: {
+        code: mycode
+      }
+    })
+    .then(res => {
+      //需要登录
+      var res = res.data;
+      if (res && res.status === 1) {
+        selfStore.set('openId', res.data);//存储Openid
+
+        location.href = `http://m.example.com/?a=1#${location.href.split('#')[1]}`; // 增加a=1 防止支付错误 防止前台死循环
+      }
+    });
+}
+
+/**
+ * 全局路由
+ * @Author   Hybrid
+ * @DateTime 2018-02-28
+ */
+if (process.env.NODE_ENV == 'production') {
+  router.beforeEach((to, from, next) => {
+    let url = location.href;
+    // 同时判断'a=1' 和code= 防止前台死循环 
+    // wechatCode没有 发起授权
+    if ((url.indexOf('a=1') < 1) && (url.indexOf('code=') < 1)) {
+      let redirect_url = encodeURIComponent(`http://m.example.com#${to.path}`);
+      location.href = `http://m.example.com/Home/WxSignature/getBaseInfos?redirect_url=${redirect_url}`;
+    } else {
+      // 后台重定向页面，授权登录
+      (!(url.indexOf('code=') < 1)) ? getCodePullCode(url): checkIsLoginGotologin(to, next)
+    }
+  })
+}
+```
 
 **2、通过code换取网页授权access_token（与基础支持中的access_token不同）**
 
@@ -631,5 +698,8 @@ http：GET（请使用https协议） https://api.weixin.qq.com/sns/userinfo?acce
 ```
 
 
+注意： 
+
+location.href = `http://m.example.com/?a=1#${location.href.split('#')[1]}`; // 增加a=1 防止支付错误 防止前台死循环
 
 
