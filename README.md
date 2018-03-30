@@ -1,6 +1,6 @@
 # wechat
 
->手把手实现微信网页授权和微信支付，附源代码（VUE and thinkPHP）
+>手把手实现微信网页授权和公众号微信支付，附源代码（VUE and thinkPHP）
 
 ## 目录
 
