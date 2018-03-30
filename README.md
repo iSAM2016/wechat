@@ -21,10 +21,9 @@
     *   [2.网页授权](#webauthorization)
 *   [JS-SDK](https://github.com/iSAM2016/wechat/blob/master/JSSDK.md)
     *   [签名](https://github.com/iSAM2016/wechat/blob/master/JSSDK.md#-1-%E7%AD%BE%E5%90%8D)
-    *   [签名前台](https://github.com/iSAM2016/wechat/blob/master/JSSDK.md#2-%E7%AD%BE%E5%90%8D-%E5%90%8E%E5%8F%B0)
-    *   [签名后台](https://github.com/iSAM2016/wechat/blob/master/JSSDK.md#3-%E7%AD%BE%E5%90%8D%E5%89%8D%E5%8F%B0)                          *   [微信支付](https://github.com/iSAM2016/wechat/blob/master/JSSDK.md#3%E5%BE%AE%E4%BF%A1%E6%94%AF%E4%BB%98)
-    
-  
+    *   [签名后台](https://github.com/iSAM2016/wechat/blob/master/JSSDK.md#2-%E7%AD%BE%E5%90%8D-%E5%90%8E%E5%8F%B0)
+    *   [签名前台](https://github.com/iSAM2016/wechat/blob/master/JSSDK.md#3-%E7%AD%BE%E5%90%8D%E5%89%8D%E5%8F%B0)
+    *   [微信支付](https://github.com/iSAM2016/wechat/blob/master/JSSDK.md#3%E5%BE%AE%E4%BF%A1%E6%94%AF%E4%BB%98)
 
 <h4 id="problem">解决的问题</h4>
 
