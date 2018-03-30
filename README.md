@@ -86,7 +86,7 @@ thinkPHP3.2 + mysql + 阿里云Linux Ubuntu
 
 >IP 白名单:允许访问微信服务器的ip（linux 公网ip 注意如果服务器有CDN加速，CDN请添加白名单）
 
-### 1.基本配置
+
 
 <h3 id='basicConfiguration'>1.基本配置</h3>
 >  此部分对应文档的 [入门指引](https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1472017492_58YV5) [接入指南](https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421135319)
