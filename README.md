@@ -37,7 +37,7 @@ vue2 + vuex + vue-router + webpack + ES6/7 + axios + sass + flex
 
 ####  后端技术栈
 
-thinkPHP3.2 + mysql + 阿里云
+thinkPHP3.2 + mysql + 阿里云Linux Ubuntu
 
 ####  前端项目运行
 
@@ -329,7 +329,7 @@ class IndexController extends Controller {
 具体而言，网页授权流程分为四步：
 >注意： 步骤一是由前台完成的，前台获取code 之后需要传给后台，由后台完成 2 3 4 
 
-    1. 引导用户进入授权页面同意授权获取code
+    1. 引导用户进入授权页面同意授权后微信跳转回调地址并传递参数code 获取code
 
     2. 通过code换取网页授权access_token（与基础支持中的access_token不同）
 
@@ -341,7 +341,11 @@ class IndexController extends Controller {
 
 **1、引导用户进入授权页面同意授权，获取code**
 
-建议：如果路由由vue管理，建议code由前台获取并发送给后台。 **在公众账号中配置授权回调域名（${redirect_url}看下面）**
+建议：如果路由由vue管理，建议code由前台获取并发送给后台。 **在公众账号中配置授权回调域名**
+
+![授权回调地址配置](./img/redirect_uri_config.png)
+
+**（${redirect_url}看下面）**
 
 
 微信授权是前端发起的，
@@ -372,18 +376,20 @@ class IndexController extends Controller {
     * 非静默授权方式获取code：`https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxf0e81c3bee622d60&redirect_uri=http%3A%2F%2Fnba.bluewebgame.com%2Foauth_response.php&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect`
 
 ```
-public function getBaseInfos(){
-    $redirect_url = I('get.redirect_url');
+   /**
+     * @name 授权引导后微信会跳转到回调地址并携带code参数
+     * @author weikai
+     */
 
-    $app_id = C('WX_APPID');
-    $redirect_uri = urlencode($redirect_url);
-    $url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=".$app_id."&redirect_uri=".$redirect_uri."&response_type=code&scope=snsapi_userinfo&state=".$id."#wechat_redirect";
+public function getBaseInfos(){
+    $redirect_url = I('get.redirect_url');//获取前台传递的回调地址
+    $app_id = C('WX_APPID');//获取自己公众号的 appid
+    $redirect_uri = urlencode($redirect_url);//处理url
+    $url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=".$app_id."&redirect_uri=".$redirect_uri."&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect";
     header('location:'.$url);
 
 }
 ```
-
-PHP 可以使用Curl函数 get 请求获取code
 
 **错误返回码说明如下：**
 
@@ -404,6 +410,8 @@ PHP 可以使用Curl函数 get 请求获取code
 
 
 * 前台获取code
+
+  引导用户到授权页面后 微信服务器会根据redirect_uri参数跳转，并且携带code参数和值
 
 ![](./img/code.jpeg)
 
@@ -498,8 +506,6 @@ grant_type ： 固定为authorization_code
  https://api.weixin.qq.com/sns/oauth2/access_token?appid=你的appid&secret=你的sercret&code=刚刚获取得code&grant_type=authorization_code
 ```
 
-PHP 可以使用Curl函数 get 请求获取code
-
 ```php
   /**
      * 前台传递code,后台存储
@@ -572,8 +578,6 @@ https://api.weixin.qq.com/sns/oauth2/refresh_token?appid=APPID&grant_type=refres
 | appid         | 是    | 公众号的唯一标识                            |
 | grant_type    | 是    | 填写为refresh_token                    |
 | refresh_token | 是    | 填写通过access_token获取到的refresh_token参数 |
-
-PHP 可以使用Curl函数 get 请求获取code
 
 ```php
   /**
