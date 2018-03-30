@@ -26,7 +26,6 @@
     *   [0.准备](#ready)
     *   [1.基本配置](#basicConfiguration)
     *   [2.网页授权](#webauthorization)
-    
 
 
 <h4 id="problem">解决的问题</h4>
@@ -84,15 +83,11 @@ thinkPHP3.2 + mysql + 阿里云Linux Ubuntu
 
 >code ： code作为换取access_token的票据，每次用户授权带上的code将不一样，code只能使用一次，5分钟未被使用自动过期。
 
-
-<<<<<<< HEAD
-IP 白名单:允许访问微信服务器的ip（linux 公网ip 注意如果服务器有CDN加速，CDN请添加白名单）
+>IP 白名单:允许访问微信服务器的ip（linux 公网ip 注意如果服务器有CDN加速，CDN请添加白名单）
 
 ### 1.基本配置
-=======
-<h3 id='basicConfiguration'>1.基本配置</h3>
->>>>>>> 8d4e4f6f4f42c7fcdc0e4aca5eabd9bfe484dddb
 
+<h3 id='basicConfiguration'>1.基本配置</h3>
 >  此部分对应文档的 [入门指引](https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1472017492_58YV5) [接入指南](https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421135319)
 
 1. 基础工具
