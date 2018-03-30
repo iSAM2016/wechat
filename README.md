@@ -2,7 +2,7 @@
 
 >手把手实现微信网页授权和微信支付，附源代码（VUE and thinkPHP）
 
-## 概述
+<h2 id="overview">概述</h2>
 
 公众号开发是痛苦的，痛苦在好多问题开发者文档是没有提到的，是需要你`猜`的. 在开发过程中翻了好多的文档，都是说明其中的一部分问题的，很费时间,所以在此总结大体过程。我们模拟的是一个支付的商城，在实现购买过程中基本是把微信公众号`最主要模块`实现了，其余的功能我们没有涉及，但应该是触类旁通的。
 
@@ -15,10 +15,21 @@
     3. 消息推送(PHP)
     3. 微信扫一扫
 
-## 目录
+##目录
+
+*   [概述](#overview)
+    *   [解决的问题](#problem)
+    *   [前端技术栈](#fontend)
+    *   [后端技术栈](#rearend)
+    *   [基本说明](#basicInstructions)
+*   [开发过程]
+    *   [0.准备](#ready)
+    *   [1.基本配置](#basicConfiguration)
+    *   [2.网页授权](#webauthorization)
+    
 
 
-#### 解决的问题
+<h4 id="problem">解决的问题</h4>
 
 - [x] 微信网页授权
 - [x] 公众号支付
@@ -28,36 +39,17 @@
 - [x] 前端history.pushState()导致ios失效问题
 - [x] 换取微信openID 顺序问题
 - [x] 网页授权后强制登录官网账户，全局进行拦截
-- [x] 前端反向代理
 
 
-####  前端技术栈
+<h4 id="fontend">前端技术栈</h4>
 
 vue2 + vuex + vue-router + webpack + ES6/7 + axios + sass + flex 
 
-####  后端技术栈
+<h4 id="rearend">后端技术栈</h4>
 
 thinkPHP3.2 + mysql + 阿里云
 
-####  前端项目运行
-
-```
-git clone https://github.com/bailicangdu/vue2-elm.git  
-```
-
-``` bash
-# install dependencies
-npm install
-
-# serve with hot reload at localhost:8080
-npm run dev
-
-# build for production with minification
-npm run build
-```
-
-
-#### 基本说明
+<h4 id="basicInstructions">基本说明</h4>
 
 > 开发环境 macOS 10.13.3   nodejs 8.0.0  centOS 7.4 
 
@@ -70,7 +62,7 @@ npm run build
 
 ## 开发过程
 
-### 0.准备
+<h3 id='ready'>0.准备</h3>
 
 请阅读以下微信开发者文档
 
@@ -82,17 +74,18 @@ npm run build
 
 [全局返回码说明](https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1433747234) 
 
-##### 附：参数说明
+>附：参数说明
 
-appid：公众号唯一标识id（公众号-开发-基本配置中查看）。
+>appid：公众号唯一标识id（公众号-开发-基本配置中查看）。
 
-secret：公众号开发密钥（初次请保存本地，忘记请重置）。
+>secret：公众号开发密钥（初次请保存本地，忘记请重置）。
 
-openid: 每个微信用户关注此公众号后会生成openid，并且在此公众号中每个用户得openid是唯一的。
+>openid: 每个微信用户关注此公众号后会生成openid，并且在此公众号中每个用户得openid是唯一的。
 
-code ： code作为换取access_token的票据，每次用户授权带上的code将不一样，code只能使用一次，5分钟未被使用自动过期。
+>code ： code作为换取access_token的票据，每次用户授权带上的code将不一样，code只能使用一次，5分钟未被使用自动过期。
 
-### 1.基本配置
+
+<h3 id='basicConfiguration'>1.基本配置</h3>
 
 >  此部分对应文档的 [入门指引](https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1472017492_58YV5) [接入指南](https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421135319)
 
@@ -283,7 +276,8 @@ class IndexController extends Controller {
 
 微信公众号基本配置中点击启用配置，如果验证失败可能是网络延迟导致，再点击启用多试几次，3次以上不成功，请检查代码。
 
-### 2.网页授权
+
+<h3 id="webauthorization">2.网页授权</h3>
 
 **如果使用支付功能，必须先授权**
 
@@ -420,14 +414,14 @@ PHP 可以使用Curl函数 get 请求获取code
 let checkIsLoginGotologin = function(to, next) {
     // isRelation 判断用户微信账户是否关联官网账户
     // routeArr 是一些路由是不需要受监听的
+    // !res ? 已经授权 ：没有授权
   isRelation().then(res => {
     if (routeArr.includes(to.path)) {
       !res ? next('index') : next();
     } else {
-      // 没有登录且不是登录页                             // 当在登录的情况下是不允许访问login页面
+      // 没有授权且不是授权页                             // 当在授权的情况下是不允许访问login页面
       (res && to.path !== '/login') ? next('/login'): ((!res && to.path === '/login') ? next('index') : next())
     }
-
   })
 }
 
@@ -438,8 +432,9 @@ let checkIsLoginGotologin = function(to, next) {
  * @param    {}   url 路径   
  */
 let getCodePullCode = async function(url) {
-  let mycode = url.substring(url.indexOf('code=') + 5, url.indexOf('state=') - 1);
+  let mycode = url.substring(url.indexOf('code=') + 5, url.indexOf('state=') - 1);// 前台截取code
   selfStore.set('wechatCodeStr', mycode); // 存储code
+  //传送给后台code
   await axios
     .get("/home/WxSignature/getCode", {
       params: {
@@ -450,7 +445,7 @@ let getCodePullCode = async function(url) {
       //需要登录
       var res = res.data;
       if (res && res.status === 1) {
-        selfStore.set('openId', res.data);//存储Openid
+        selfStore.set('openId', res.data);//本地存储Openid，也可以不存储。由后台调配
 
         location.href = `http://m.example.com/?a=1#${location.href.split('#')[1]}`; // 增加a=1 防止支付错误 防止前台死循环
       }
@@ -480,8 +475,6 @@ if (process.env.NODE_ENV == 'production') {
 
 **2、通过code换取网页授权access_token（与基础支持中的access_token不同）**
 
-**请求api参数解释：**
-
 appid : 请查看本文 参数说明
 
 secret : 请查看本文 参数说明
@@ -489,8 +482,6 @@ secret : 请查看本文 参数说明
 code ：获取到得code。
 
 grant_type ： 固定为authorization_code
-
-
 
 获取code后，请求以下链接获取access_token以及用户得openid：
 
@@ -539,6 +530,8 @@ PHP 可以使用Curl函数 get 请求获取code
 "scope":"SCOPE" }
 
 ```
+
+>有些数据是需要存储到后台数据库的如openid
 
 | 参数            | 描述                                       |
 | ------------- | ---------------------------------------- |
@@ -696,10 +689,4 @@ http：GET（请使用https协议） https://api.weixin.qq.com/sns/userinfo?acce
 {"errcode":40003,"errmsg":" invalid openid "}
 
 ```
-
-
-注意： 
-
-location.href = `http://m.example.com/?a=1#${location.href.split('#')[1]}`; // 增加a=1 防止支付错误 防止前台死循环
-
 

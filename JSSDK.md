@@ -1,34 +1,36 @@
-### JS-SDK
->
+# JS-SDK
 
 
-1. 签名
+*   [签名](#signature)
+
+
+<h3 id="signature"> 1. 签名</h3>
     
-    看到网上的大部分问题都集中在签名部分，请大家一定请熟读[微信JS-SDK说明文档](https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421141115)`附录5-常见错误及解决方法` 部分。都能解决问题
-
+看到网上的大部分问题都集中在签名部分，请大家一定请熟读[微信JS-SDK说明文档](https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421141115)`附录5-常见错误及解决方法` 部分。
 
 **注意**
 
-        *. 在计算签名的过程中，如果url总是不对请 实验 `首页的url`或 window.location.href。因此真实的请求路径与拿去生成签名的路径是一致的，千万记住这条
-    
-        *. 前端需要用js获取当前页面除去'#'hash部分的链接（可用location.href.split('#')[0]获取,而且需要encodeURIComponent
+* 在计算签名的过程中，如果url总是不对请 实验 `首页的url`或 window.location.href。 做到微信拿到真实路径与我们拿去生成签名的路径是一致的，千万记住这条
 
-        *. vue每次刷新页面，都需要重新配置SDK，**使用JS_SDK必须先注入配置信息**
+*  前端需要用js获取当前页面除去'#'hash部分的链接（可用location.href.split('#')[0]获取,而且需要encodeURIComponent
 
-        *. [关于html5-History模式在微信浏览器内的问题 #481](https://github.com/vuejs/vue-router/issues/481)
+*  vue每次刷新页面，都需要重新配置SDK，**使用JS_SDK必须先注入配置信息**
 
-        *. IOS：微信IOS版，微信安卓版，每次切换路由，SPA的url是不会变的，发起签名请求的url参数必须是当前页面的url就是最初进入页面时的url(entryUrl.js)
+*  [关于html5-History模式在微信浏览器内的问题 #481](https://github.com/vuejs/vue-router/issues/481)
 
-        *. Android：微信安卓版，每次切换路由，SPA的url是会变的，发起签名请求的url参数必须是当前页面的url(不是最初进入页面时的)(entryUrl.js)
+*  IOS：微信IOS版，微信安卓版，每次切换路由，SPA的url是不会变的，发起签名请求的url参数必须是当前页面的url就是最初进入页面时的url(entryUrl.js)
 
-        *. 登录微信公众平台进入“公众号设置”的“功能设置”里填写“JS接口安全域名”。
+*  Android：微信安卓版，每次切换路由，SPA的url是会变的，发起签名请求的url参数必须是当前页面的url(不是最初进入页面时的)(entryUrl.js)
 
-        *. 域名格式：如果你的项目域名是http://test.domain.com,那么JS接口安全域名为test.domain.com
+*  登录微信公众平台进入“公众号设置”的“功能设置”里填写“JS接口安全域名”。
 
-        *. timestamp: , // 生成签名的时间戳，精确到秒 秒  秒  秒  
+*  域名格式：如果你的项目域名是http://test.domain.com,那么JS接口安全域名为test.domain.com
 
-        *. nonceStr: '', // 必填，生成签名的随机串  
+*  timestamp: , // 生成签名的时间戳，精确到秒 秒  秒  秒  
 
+*  nonceStr: '', // 必填，生成签名的随机串  
+  
+      
 
 ```
 // entryUrl.js
@@ -42,18 +44,18 @@ url: isAndroid() ? location.href.split('#')[0] : window.entryUrl
 ```    
 
 
-2. 签名 （后台）
+### 2. 签名 （后台）
 
    
 
-3. 签名（前台）
+### 3. 签名（前台）
 
-    * 微信配置
-    * 微信扫一扫
-    * 分享到朋友圈
-    * 朋友的设置
-    * 分享的基本配置
-    * 微信支付
+- [x]  微信配置
+- [x]  微信扫一扫
+- [x]  分享到朋友圈
+- [x]  朋友的设置
+- [x]  分享的基本配置
+- [x]  微信支付
 
 ```
 /**
@@ -68,32 +70,26 @@ var JsWeChatApis = [
    请补全列表
 ];
 
-var isWeChatReady = false;
-var sharePage = "default";
+var isWeChatReady = false;// 检查微信wx.ready
  
 export default class AlWeChat {
   constructor(object) {
-    this.object = object;
+    this.object = object;// vue 需要使用vue 解决回调
     this.wxConfig();// 初始微信配置
-  }
-  isWeChatReady() {
-    return isWeChatReady;
   }
   /**
    * 微信配置
    * @Author   Hybrid
    * @DateTime 2017-11-21
-   * @param    {}   router [单页面应用，由前台通知URL，此方法并不完美，探寻更好的方法]
-   * @return   {[type]}          [description]
    */
   wxConfig() {
     let self = this;
     axios.get('/home/OrderConfirm/wxConfig', {
       params: {
-        frontUrl: location.href.split('#')[0]// 前台吧url 传到后台 而且需要encodeURIComponent
+        frontUrl: location.href.split('#')[0]// 前台吧url 传到后台 而且需要encodeURIComponent，
       }
     }).then(function(response) {
-      var attachment = response.data.data;
+      var attachment = response.data.data;// 后台统一调配数据，返回前台
       // console.log(attachment);
       wx.config({
         debug: false,
@@ -106,7 +102,7 @@ export default class AlWeChat {
       });
       wx.ready(function () {
         isWeChatReady = true;
-        self.object && self.wxQDetailShare()
+        self.object && self.wxQDetailShare()//分享到朋友圈+朋友的设置
       });
       wx.error(function (res) {
         //console.log(JSON.stringify(res));
@@ -181,7 +177,7 @@ export default class AlWeChat {
         link: shareConfig.timeLine.link, // 分享链接
         imgUrl: shareConfig.timeLine.imgUrl, // 分享图标
         success: function () {
-          self.object.closecovershow();
+          self.object.closecovershow();// 回调
           // 用户确认分享后执行的回调函数
         },
         cancel: function () {
@@ -227,16 +223,16 @@ export default class AlWeChat {
       params: {
         type: 'weixin',
         frontUrl: location.href.split('#')[0],
-        order_num
+        order_num// 订单号
       }
     }).then(function (response) {
-      var attachment = response.data.data;
+      var attachment = response.data.data;// 后台返回参数
       localStorage.setItem(wechatCode, '');
       //alert(location.href)
       WeixinJSBridge.invoke('getBrandWCPayRequest', {
         "appId": attachment.appId,
-        "timeStamp": attachment.timeStamp,
-        "nonceStr": attachment.nonceStr,
+        "timeStamp": attachment.timeStamp, // 大写S
+        "nonceStr": attachment.nonceStr, // 大写S
         "package": attachment.package,
         "signType": 'MD5',
         "paySign": attachment.paySign,
@@ -262,12 +258,97 @@ export default class AlWeChat {
 }
 ```
 
-调用 new AlWeChat(this)  //this = vue 
+在前端调用
+```
+/**
+ * 注入配置
+ * this 是 vue
+ * 注意： 分享到朋友圈或分享到朋友，每个页面都需要配置.所以最好在每个页面调用一下 注入配置
+ */
+var WeChat = new AlWeChat(this) 
+WeChat.payWeChat(12345678) // 调用支付
+WeChat.wxScanQRCode(fn) // 扫一扫
+
+```
+
+### 3.微信支付
+
+  * 支付申请：微信支付 - 公众号支付 -
+
+  * [微信支付文档](https://pay.weixin.qq.com/wiki/doc/api/index.html)
+
+  * 请仔细阅读[公众号支付开发步骤](https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=7_3)  
+
+  * 设置[支付目录](https://pay.weixin.qq.com/index.php/extend/pay_setting)
+  
+  * **设置支付授权目录注意3点：**
+
+      * 所有使用公众号支付方式发起支付请求的链接地址，都必须在支付授权目录之下；
+
+      * 最多设置5个支付授权目录，且域名必须通过ICP备案；
+
+      * 头部要包含http或https，须细化到二级或三级目录，以左斜杠“/”结尾。
+
+
+  * 设置支付授权目录的具体规则是这样的：
+
+      * 非单页面应用，把URL最后一个反斜杠后面的内容去
+      * 单页面应用（vue) 为了解决安卓和IOS 支付效果不一致问题，我们通常会在url 中添加a=1(前边已经提到过),保留问号之前内容（eg:6）
+        >[开发单页应用(SPA)时候遇到的微信支付授权目录的坑](https://www.tuicool.com/articles/mQ7RRfb)
+
+```
+1
+
+比如：调用支付的页面地址为 http://a.b.com/pay/weixin/c.html，`
+那么：授权目录配置为 http://a.b.com/pay/weixin/`
+```
+      
+```
+2
+     
+比如：调用支付的页面地址为 http://a.b.com/pay/weixin，
+那么：授权目录配置为 http://a.b.com/pay/
+```
+
+```
+3
+
+比如：调用支付的页面地址为 http://a.b.com/pay，
+那么：授权目录配置为 http://a.b.com/
+```
+   
+```
+4
+
+比如：调用支付的页面地址为  http://a.b.com/pay/weixin/c.html？name=mango，
+那么：授权目录配置为  http://a.b.com/pay/weixin/
+```
+
+```
+5(vue spa)
+
+ 比如：调用支付的页面地址为  http://a.b.com/#/pay/weixin/c.html？name=mango
+ 那么：授权目录配置为   http://a.b.com/
+```
+
+```
+6(vue spa)
+
+ 比如：调用支付的页面地址为  http://a.b.com/#!/cart/index（通常我们会改变URL http://a.b.com/?#!/cart/index）
+ 那么：授权目录配置为   http://a.b.com/
+```
+
+
+我们在网页授权的时候改变url
+```
+ location.href = `http://m.example.com/?a=1#${location.href.split('#')[1]}`; // 增加a=1 防止支付错误 防止前台死循环
+```
+
 
 
 tips
 在调用微信支付前，需要从后端发起 unifiedorder 统一下单请求获取到 prepay_id，通过 prepay_id、AppID、商品平台的 key 等参数生成签名，最后调用 wx.chooseWXPay 发起微信支付。
-注意，生成支付签名这边有很多的坑，比如 timestamp 在 wx.chooseWxPay 里是小写，而在生成签名时使用的是 timeStamp。尽量使用成熟的库来避免这种不知所谓的坑。
-统一下单请求时会要求传入参数 notify_url，这个是异步接受微信支付结果通知的回调地址。注意该地址不能携带参数。举例来说 https://www.xxx.com?a=1，回调时 a=1会被省略。
+
+
 
 
