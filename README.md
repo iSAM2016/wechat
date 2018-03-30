@@ -88,7 +88,8 @@ thinkPHP3.2 + mysql + 阿里云Linux Ubuntu
 
 
 <h3 id='basicConfiguration'>1.基本配置</h3>
->  此部分对应文档的 [入门指引](https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1472017492_58YV5) [接入指南](https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421135319)
+>此部分对应文档的 [入门指引](https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1472017492_58YV5) 
+>[接入指南](https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421135319)
 
 1. 基础工具
 
