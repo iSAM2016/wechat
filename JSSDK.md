@@ -1,10 +1,5 @@
 # JS-SDK
 
-*   [签名](#signature)
-
-1. 签名
-
-    看到网上的大部分问题都集中在签名部分，请大家一定请熟读[微信JS-SDK说明文档](https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421141115)`附录5-常见错误及解决方法` 部分。都能解决问题
 
 <h3 id="signature"> 1. 签名</h3>
 ​    
@@ -46,15 +41,19 @@ if (window.entryUrl === '') {
 url: isAndroid() ? location.href.split('#')[0] : window.entryUrl
 ```
 
+支付流程图
+
+![](./img/payflow.png)
 
 ### 2. 签名 （后台）
 
-   后台生成签名后返回给前台使用，很多微信api需要这个签名。
+后台生成签名后返回给前台使用，很多微信api需要这个签名。
 
-   生成后可以验证一下签名是否正确    [签名校验工具](http://work.weixin.qq.com/api/jsapisign)
+生成后可以验证一下签名是否正确    [签名校验工具](http://work.weixin.qq.com/api/jsapisign)
 
-   ```php
-   <?php
+```
+//php
+<?php
    namespace Vendor\wxpay;//命名空间
    /**
     * Class wxpay
@@ -172,7 +171,7 @@ url: isAndroid() ? location.href.split('#')[0] : window.entryUrl
 
 
    }
-   ```
+```
 
    ​
 
@@ -188,6 +187,7 @@ url: isAndroid() ? location.href.split('#')[0] : window.entryUrl
 
 ```
 /**
+ * WECHAT.js
  * Created by  isam2016 
  */
 
@@ -489,53 +489,51 @@ wxpay\wxjsapi.php
 
 使用方法:
 
-1. 将源码文件放到Thinkphp框架如下目录内
+#### 1. 将源码文件放到Thinkphp框架如下目录内
 
-   ```
+```
    项目名/ThinkPHP/Library/Vendor/wxpay/wxjsapi.php
-   ```
+```
 
-2. 微信支付方法
+#### 2. 微信支付方法
 
-   只需导入sdk文件，实例化sdk类 调用getParameters方法传入订单数据
-
-   ```php
-   	/**
-        * @name 微信支付
-        * @author weikai
-        */
-       public function orderPay(){
-           $type = I('get.type');
-           //微信jsapi 支付
-           if($type=='weixin'){
-               // 导入微信支付sdk
-               Vendor('wxpay.wxjsapi');
-               $wxpay=new \Weixinpay();//实例化sdk类
-            	//获取订单数据传入sdk  getParameters方法中
-                $order_num = I('get.order_num');
-                $orderData = M('order')->where('order_number='.$order_num)->find();
-                if($orderData){
-                    $data=$wxpay->getParameters($orderData);
-                }else{
-                    return $this->ajaxReturn(show(0,'无此订单'));
-                }
-   			//最后返回支付签名信息及预支付id
-               if($data){
-                   return $this->ajaxReturn(show(1,'签名信息',$data));
-               }else{
-                   return $this->ajaxReturn(show(0,'签名信息失败'));
-               }
-           }
-       }
-
-   ```
-
+只需导入sdk文件，实例化sdk类 调用getParameters方法传入订单数据
+```
+ /*
+  * php
+  * @name 微信支付
+  * @author weikai
+  */
+ public function orderPay(){
+     $type = I('get.type');
+     //微信jsapi 支付
+     if($type=='weixin'){
+         // 导入微信支付sdk
+         Vendor('wxpay.wxjsapi');
+         $wxpay=new \Weixinpay();//实例化sdk类
+      	//获取订单数据传入sdk  getParameters方法中
+          $order_num = I('get.order_num');
+          $orderData = M('order')->where('order_number='.$order_num)->find();
+          if($orderData){
+              $data=$wxpay->getParameters($orderData);
+          }else{
+              return $this->ajaxReturn(show(0,'无此订单'));
+          }
+		//最后返回支付签名信息及预支付id
+         if($data){
+             return $this->ajaxReturn(show(1,'签名信息',$data));
+         }else{
+             return $this->ajaxReturn(show(0,'签名信息失败'));
+         }
+     }
+ }
+```
 
 
-3. 微信SDK    getParameters方法配置 （路径：wxpay\wxjsapi.php内）
 
+##### 3. 微信SDK    getParameters方法配置 （路径：wxpay\wxjsapi.php内）
 
-   ```
+```
     /**
     * 获取jssdk需要用到的数据
     * @return array jssdk需要用到的数据
@@ -569,7 +567,7 @@ wxpay\wxjsapi.php
        
        }
      }
-   ```
+```
 
 ​    成功返回信息如图：
 
@@ -577,23 +575,22 @@ wxpay\wxjsapi.php
 
 返回参数说明：
 
-appId：微信公众号标识
+>appId：微信公众号标识
 
-nonceStr：随机字符串
+>nonceStr：随机字符串
 
-prepay_id：微信生成的预支付会话标识，用于后续接口调用中使用，该值有效期为2小时
+>prepay_id：微信生成的预支付会话标识，用于后续接口调用中使用，该值有效期为2小时
 
-paySign：支付签名
+>paySign：支付签名
 
-signType：签名类型
+>signType：签名类型
 
-timeStamp：时间戳
-
-
-
-4.前端处理支付
+>timeStamp：时间戳
 
 
+
+4.前端处理支付 
+ 在 WECHAT.js 中paywechat方法
 
 5.支付结果通知
 
@@ -638,18 +635,19 @@ timeStamp：时间戳
 
 toArray -XML转换数组的函数
 
-```php
- 	/**
-     * 将xml转为array
-     * @param  string $xml xml字符串
-     * @return array       转换得到的数组
-     */
-        function toArray($xml){   
-        //禁止引用外部xml实体
-        libxml_disable_entity_loader(true);
-        $result= json_decode(json_encode(simplexml_load_string($xml, 'SimpleXMLElement', LIBXML_NOCDATA)), true);        
-        return $result;
-        }
+```
+ /**
+ * php
+ * 将xml转为array
+ * @param  string $xml xml字符串
+ * @return array       转换得到的数组
+ */
+function toArray($xml){   
+  //禁止引用外部xml实体
+  libxml_disable_entity_loader(true);
+  $result= json_decode(json_encode(simplexml_load_string($xml, 'SimpleXMLElement', LIBXML_NOCDATA)), true);        
+  return $result;
+}
 ```
 
 
