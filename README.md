@@ -26,6 +26,8 @@
     *   [0.准备](#ready)
     *   [1.基本配置](#basicConfiguration)
     *   [2.网页授权](#webauthorization)
+    *   [3.JS-SDK](https://github.com/iSAM2016/wechat/blob/master/JSSDK.md)
+   
 
 
 <h4 id="problem">解决的问题</h4>
