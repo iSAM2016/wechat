@@ -3,7 +3,7 @@
 
 <h3 id="signature"> 1. 签名</h3>
 ​    
-看到网上的大部分问题都集中在签名部分，请大家一定请熟读[微信JS-SDK说明文档](https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421141115)`附录5-常见错误及解决方法` 部分。
+看到网上的大部分问题都集中在签名部分，请大家一定请熟读 [微信JS-SDK说明文档](https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421141115)`附录5-常见错误及解决方法` 部分。
 
 **注意**
 
