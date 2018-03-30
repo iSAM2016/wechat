@@ -8,14 +8,7 @@
 
 **我们叙述的过程是按`开发流程`进行叙述的，不会是按照`开发文档`的形式叙述，希望您能结合[微信的开发文档](https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1445241432)一起阅读，当然在流程中我们会提醒你阅读的部分**
 
-主要模块：
-​    
-    1. 微信授权
-    2. 微信公众号支付
-    3. 消息推送(PHP)
-    3. 微信扫一扫
-
-##目录
+## 目录
 
 *   [概述](#overview)
     *   [解决的问题](#problem)
@@ -26,9 +19,12 @@
     *   [0.准备](#ready)
     *   [1.基本配置](#basicConfiguration)
     *   [2.网页授权](#webauthorization)
-    *   [3.JS-SDK](https://github.com/iSAM2016/wechat/blob/master/JSSDK.md)
-   
-
+*   [JS-SDK](https://github.com/iSAM2016/wechat/blob/master/JSSDK.md)
+    *   [签名](https://github.com/iSAM2016/wechat/blob/master/JSSDK.md#-1-%E7%AD%BE%E5%90%8D)
+    *   [签名前台](https://github.com/iSAM2016/wechat/blob/master/JSSDK.md#2-%E7%AD%BE%E5%90%8D-%E5%90%8E%E5%8F%B0)
+    *   [签名后台](https://github.com/iSAM2016/wechat/blob/master/JSSDK.md#3-%E7%AD%BE%E5%90%8D%E5%89%8D%E5%8F%B0)                          *   [微信支付](https://github.com/iSAM2016/wechat/blob/master/JSSDK.md#3%E5%BE%AE%E4%BF%A1%E6%94%AF%E4%BB%98)
+    
+  
 
 <h4 id="problem">解决的问题</h4>
 
