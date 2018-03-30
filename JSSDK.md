@@ -7,7 +7,7 @@
     看到网上的大部分问题都集中在签名部分，请大家一定请熟读[微信JS-SDK说明文档](https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421141115)`附录5-常见错误及解决方法` 部分。都能解决问题
 
 <h3 id="signature"> 1. 签名</h3>
-    
+​    
 看到网上的大部分问题都集中在签名部分，请大家一定请熟读[微信JS-SDK说明文档](https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421141115)`附录5-常见错误及解决方法` 部分。
 
 **注意**
@@ -32,8 +32,8 @@
 *  timestamp: , // 生成签名的时间戳，精确到秒 秒  秒  秒  
 
 *  nonceStr: '', // 必填，生成签名的随机串  
-  
-      
+
+   ​    
 
 ```
 // entryUrl.js
@@ -179,12 +179,12 @@ url: isAndroid() ? location.href.split('#')[0] : window.entryUrl
 
 ### 3. 签名（前台）
 
-- [x]  微信配置
-- [x]  微信扫一扫
-- [x]  分享到朋友圈
-- [x]  朋友的设置
-- [x]  分享的基本配置
-- [x]  微信支付
+- [x] 微信配置
+- [x] 微信扫一扫
+- [x] 分享到朋友圈
+- [x] 朋友的设置
+- [x] 分享的基本配置
+- [x] 微信支付
 
 ```
 /**
@@ -409,7 +409,7 @@ WeChat.wxScanQRCode(fn) // 扫一扫
   * 请仔细阅读[公众号支付开发步骤](https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=7_3)  
 
   * 设置[支付目录](https://pay.weixin.qq.com/index.php/extend/pay_setting)
-  
+
   * **设置支付授权目录注意3点：**
 
       * 所有使用公众号支付方式发起支付请求的链接地址，都必须在支付授权目录之下；
@@ -431,7 +431,7 @@ WeChat.wxScanQRCode(fn) // 扫一扫
 比如：调用支付的页面地址为 http://a.b.com/pay/weixin/c.html，`
 那么：授权目录配置为 http://a.b.com/pay/weixin/`
 ```
-      
+
 ```
 2
      
@@ -445,7 +445,7 @@ WeChat.wxScanQRCode(fn) // 扫一扫
 比如：调用支付的页面地址为 http://a.b.com/pay，
 那么：授权目录配置为 http://a.b.com/
 ```
-   
+
 ```
 4
 
@@ -475,9 +475,183 @@ WeChat.wxScanQRCode(fn) // 扫一扫
 
 
 
-tips
-在调用微信支付前，需要从后端发起 unifiedorder 统一下单请求获取到 prepay_id，通过 prepay_id、AppID、商品平台的 key 等参数生成签名，最后调用 wx.chooseWXPay 发起微信支付。
+
+
+PHP
+
+我们基于微信支付官方demo做了优化（微信公众号支付）
+
+源码目录	:
+
+```
+wxpay\wxjsapi.php
+```
+
+使用方法:
+
+1. 将源码文件放到Thinkphp框架如下目录内
+
+   ```
+   项目名/ThinkPHP/Library/Vendor/wxpay/wxjsapi.php
+   ```
+
+2. 微信支付方法
+
+   只需导入sdk文件，实例化sdk类 调用getParameters方法传入订单数据
+
+   ```php
+   	/**
+        * @name 微信支付
+        * @author weikai
+        */
+       public function orderPay(){
+           $type = I('get.type');
+           //微信jsapi 支付
+           if($type=='weixin'){
+               // 导入微信支付sdk
+               Vendor('wxpay.wxjsapi');
+               $wxpay=new \Weixinpay();//实例化sdk类
+            	//获取订单数据传入sdk  getParameters方法中
+                $order_num = I('get.order_num');
+                $orderData = M('order')->where('order_number='.$order_num)->find();
+                if($orderData){
+                    $data=$wxpay->getParameters($orderData);
+                }else{
+                    return $this->ajaxReturn(show(0,'无此订单'));
+                }
+   			//最后返回支付签名信息及预支付id
+               if($data){
+                   return $this->ajaxReturn(show(1,'签名信息',$data));
+               }else{
+                   return $this->ajaxReturn(show(0,'签名信息失败'));
+               }
+           }
+       }
+
+   ```
 
 
 
+3. 微信SDK    getParameters方法配置 （路径：wxpay\wxjsapi.php内）
 
+
+   ```
+    /**
+    * 获取jssdk需要用到的数据
+    * @return array jssdk需要用到的数据
+    */
+   	public function getParameters($orderData){
+           $order=array(
+               'body'=>"商品描述".$orderData['order_number'],// 商品描述（需要根据自己的业务修改）
+               'total_fee'=>$orderData['total_price']*100,// 订单金额  以(分)为单位（需要根据自己的业务修改）
+               'out_trade_no'=>$orderData['order_number'],// 订单号（需要根据自己的业务修改）
+               'product_id'=>'10001',// 商品id（需要根据自己的业务修改）
+               'trade_type'=>'JSAPI',// JSAPI公众号支付
+               'openid'=>session('openid')// 获取到的openid
+           );
+           // 统一下单 获取prepay_id 具体参照源文件内
+           $unified_order=$this->unifiedOrder($order);
+           // 获取当前时间戳
+           $time=time();
+           // 组合jssdk需要用到的数据
+           $config = $this->config;
+           $data=array(
+               'appId'=>$config['APPID'], //appid
+               'timeStamp'=>strval($time), //时间戳
+               'nonceStr'=>$this->getNonceStr(32),// 随机字符串
+               'package'=>'prepay_id='.$unified_order['prepay_id'],// 预支付交易会话标识
+               'signType'=>'MD5'//加密方式
+           );
+           // 生成签名
+           $data['paySign']=$this->makeSign($data);
+       
+           return $data;
+       
+       }
+     }
+   ```
+
+​    成功返回信息如图：
+
+   ![](./img/wxpaysign.png)
+
+返回参数说明：
+
+appId：微信公众号标识
+
+nonceStr：随机字符串
+
+prepay_id：微信生成的预支付会话标识，用于后续接口调用中使用，该值有效期为2小时
+
+paySign：支付签名
+
+signType：签名类型
+
+timeStamp：时间戳
+
+
+
+4.前端处理支付
+
+
+
+5.支付结果通知
+
+```php
+ 	/**
+     * 微信公众号支付回调验证
+     * @return array 返回数组格式的notify数据
+     */
+    public function notify(){
+         Vendor('wxpay.wxjsapi');//引入sdk
+         $wxpay=new \Weixinpay();//实例化sdk类
+        // 获取微信支付通知的xml数据
+        $xml=file_get_contents('php://input', 'r');
+        
+        // 转成php数组
+        $data=toArray($xml);
+        // 保存原sign
+        $data_sign=$data['sign'];
+        // sign不参与签名
+        unset($data['sign']);
+        $sign=$wxpay->makeSign($data);
+        // 判断签名是否正确  判断支付状态
+        if ($sign===$data_sign && $data['return_code']=='SUCCESS' && $data['result_code']=='SUCCESS') {
+            $result=$data;
+            //将支付状态更新进订单表
+           //其他业务代码
+        }else{
+            $result=false;
+        }
+        // 返回状态给微信服务器
+        if ($result) {
+            $str='<xml><return_code><![CDATA[SUCCESS]]></return_code><return_msg><![CDATA[OK]]></return_msg></xml>';
+
+        }else{
+            $str='<xml><return_code><![CDATA[FAIL]]></return_code><return_msg><![CDATA[签名失败]]></return_msg></xml>';
+        }
+        echo $str;
+        return $result;
+    }
+
+```
+
+toArray -XML转换数组的函数
+
+```php
+ 	/**
+     * 将xml转为array
+     * @param  string $xml xml字符串
+     * @return array       转换得到的数组
+     */
+        function toArray($xml){   
+        //禁止引用外部xml实体
+        libxml_disable_entity_loader(true);
+        $result= json_decode(json_encode(simplexml_load_string($xml, 'SimpleXMLElement', LIBXML_NOCDATA)), true);        
+        return $result;
+        }
+```
+
+
+
+6.前台轮询判断订单支付状态，成功给用户提示。
