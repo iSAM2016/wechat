@@ -92,6 +92,8 @@ openid: 每个微信用户关注此公众号后会生成openid，并且在此公
 
 code ： code作为换取access_token的票据，每次用户授权带上的code将不一样，code只能使用一次，5分钟未被使用自动过期。
 
+IP 白名单:允许访问微信服务器的ip（linux 公网ip 注意如果服务器有CDN加速，CDN请添加白名单）
+
 ### 1.基本配置
 
 >  此部分对应文档的 [入门指引](https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1472017492_58YV5) [接入指南](https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421135319)
@@ -168,12 +170,12 @@ code ： code作为换取access_token的票据，每次用户授权带上的code
 现在如果你点击`确认` 按钮，肯定会报认证错误。因为我们没有做`微信认证请求` 接收。  开发者提交信息后，微信服务器将发送GET请求到`填写的服务器地址URL`上，GET请求携带参数如下表所示：
 ​    
 
-|        参数        | 描述       |
-| :--------------  |:--------- |
-| signature         | 微信加密签名，signature结合了开发者填写的token参数和请求中的timestamp参数、nonce参数
-| nonce             | 令客户端重定向至指定URI
-| timestamp         | 时间戳
-| echostr           | 随机字符串
+| 参数        | 描述                                       |
+| --------- | ---------------------------------------- |
+| signature | 微信加密签名，signature结合了开发者填写的token参数和请求中的timestamp参数、nonce参数。 |
+| timestamp | 时间戳                                      |
+| nonce     | 随机数                                      |
+| echostr   | 随机字符串                                    |
 
 开发者通过检验signature对请求进行校验（下面有校验方式）。若确认此次GET请求来自微信服务器，请原样返回echostr参数内容，则接入生效，成为开发者成功，否则接入失败。加密/校验流程如下：
 
@@ -278,7 +280,7 @@ class IndexController extends Controller {
 
 ```
 
-** 注意：示例代码中 Token 要与微信公众号基本配置中的Token 一致 **
+**注意：示例代码中 Token 要与微信公众号基本配置中的Token 一致 **
 
 
 微信公众号基本配置中点击启用配置，如果验证失败可能是网络延迟导致，再点击启用多试几次，3次以上不成功，请检查代码。
@@ -566,6 +568,8 @@ grant_type ： 固定为authorization_code
 
 由于获取用户信息所用得access_token有效时常比较短，如果想获取access_token后间隔时间较长获取微信用户基本信息请请求刷新access_token api
 
+我这里没有采用授权后拉取用户信息的api，而是采用用户信息获取的api。
+
 **请求方法**
 
 ```
@@ -622,14 +626,17 @@ https://api.weixin.qq.com/sns/oauth2/refresh_token?appid=APPID&grant_type=refres
 
 **4、通过网页授权access_token和openid获取用户基本信息**
 
-如果网页授权参数为snsapi_userinfo（非静默授权），则此时可以通过access_token和openid获取用户信息了。
+**注意：**
 
-请求方法
+这里微信提供了两个不同的api
 
-```
-http：GET（请使用https协议） https://api.weixin.qq.com/sns/userinfo?access_token=ACCESS_TOKEN&openid=OPENID&lang=zh_CN
+1.在微信授权里微信提供拉取用户信息的api（access_token时间限制为五分钟失效）
 
-```
+http：GET
+
+ ```
+https://api.weixin.qq.com/sns/userinfo?access_token=ACCESS_TOKEN&openid=OPENID&lang=zh_CN
+ ```
 
 参数说明
 
@@ -639,26 +646,47 @@ http：GET（请使用https协议） https://api.weixin.qq.com/sns/userinfo?acce
 | openid       | 用户的唯一标识                                  |
 | lang         | 返回国家地区语言版本，zh_CN 简体，zh_TW 繁体，en 英语       |
 
+2.微信用户管理提供的获取用户信息api（只需要使用全局access_token有效期2小时，和openid）
+
+**推荐使用这个接口获取用户信息**
+
+http: GET
+
+```
+https://api.weixin.qq.com/cgi-bin/user/info?access_token=ACCESS_TOKEN&openid=OPENID&lang=zh_CN
+```
+参数说明
+
+| 参数           | 描述                                 |
+| ------------ | ---------------------------------- |
+| access_token | 全局access_token 有效期7200秒            |
+| openid       | 用户的唯一标识                            |
+| lang         | 返回国家地区语言版本，zh_CN 简体，zh_TW 繁体，en 英语 |
+
+
+
+如果网页授权参数为snsapi_userinfo（非静默授权），则此时可以通过access_token和openid获取用户信息了。
+
+
+
+
+
 **PHP示例**
 
 ```php
 	/**
      * @return mixed
-     * @name 获取用户详细信息 
+     * @name 使用全局access_token获取用户详细信息 
      * @author weikai
      */
-    public function getWxUserInfo($openid,$access_token,$refresh_token){
+    public function getWxUserInfo($openid){
+        $access_token = $this->getAccess_Token();
         $url = "https://api.weixin.qq.com/cgi-bin/user/info?access_token=".$access_token."&openid=".$openid."&lang=zh_CN";
         $data = $this->cUrl($url);
         $data = json_decode($data);
-      //如果access_token 失效导致获取失败就刷新access_token 重新获取
-        if(!$data){
-          $access_token  = $this->reAccessToken($refresh_token);
-          $data = $this->getWxUserInfo($openid,$access_token,$refresh_token)
-        }else{
-          return $data;  
-        }
-        
+      if($data){
+        return $data;  
+      }     
     }
 ```
 
