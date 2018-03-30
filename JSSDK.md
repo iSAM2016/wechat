@@ -653,3 +653,8 @@ function toArray($xml){
 
 
 6.前台轮询判断订单支付状态，成功给用户提示。
+
+
+## 可以添加群 交流
+
+<img src="./img/qq.png" alt="" height="400px">
