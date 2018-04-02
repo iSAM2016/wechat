@@ -573,7 +573,7 @@ wxpay\wxjsapi.php
 
 ​    成功返回信息如图：
 
-   ![](./img/wxpaysign.png)
+   ![](./img/wxpaySign.png)
 
 返回参数说明：
 
