@@ -1,18 +1,20 @@
 # wechat
 
->手把手实现微信网页授权和公众号微信支付，附源代码（VUE and thinkPHP）
+>手把手实现微信网页授权、公众号微信支付、APP授权登录、分享、支付，附源代码（VUE、thinkPHP、react-native）
 
 ## 目录
 
 *   [概述](#overview)
     *   [解决的问题](#problem)
     *   [前端技术栈](#fontend)
+    *   [APP技术栈](#APP)
     *   [后端技术栈](#rearend)
     *   [基本说明](#basicInstructions)
 *   [开发过程]
     *   [0.准备](#ready)
     *   [1.基本配置](#basicConfiguration)
     *   [2.网页授权](#webauthorization)
+    *   [3.APP对接微信](#appauthorization)
 *   [JS-SDK](https://github.com/iSAM2016/wechat/blob/master/JSSDK.md)
     *   [签名](https://github.com/iSAM2016/wechat/blob/master/JSSDK.md#-1-%E7%AD%BE%E5%90%8D)
     *   [签名后台](https://github.com/iSAM2016/wechat/blob/master/JSSDK.md#2-%E7%AD%BE%E5%90%8D-%E5%90%8E%E5%8F%B0)
@@ -42,6 +44,10 @@
 <h4 id="fontend">前端技术栈</h4>
 
 vue2 + vuex + vue-router + webpack + ES6/7 + axios + sass + flex 
+
+<h4 id="APP">APP技术栈</h4>
+
+react-native + react + redux + react-navigation + react-native-vector-icons + ES6/7 
 
 <h4 id="rearend">后端技术栈</h4>
 
@@ -722,3 +728,22 @@ https://api.weixin.qq.com/cgi-bin/user/info?access_token=ACCESS_TOKEN&openid=OPE
 
 ```
 
+<h3 id="appauthorization">3.APP对接微信</h3>
+
+<h4>场景介绍</h4>
+
+>适用于商户在移动端APP中集成登录、分享、微信支付功能。微信官网文档基本都是解释原生Android、IOS方面配置，以及操作流程。并没有针对react-native编写详细的对接文档。自己也是用react-native对接了一下微信有关的功能，今天跟大家分享一下。针对支付功能介绍一下基本的流程。商户APP调用微信提供的SDK调用微信支付模块，商户APP会跳转到微信中完成支付。支付完后跳回到商户APP内，最后展示支付结果。目前微信支付支持手机系统有：IOS（苹果）、Android（安卓）
+
+<hr>
+
+<h4>集成SDK</h4>
+
+- 获取APPID：商户在[微信开放平台]('https://open.weixin.qq.com/')申请开发APP应用后，微信开放平台会生成APP的唯一标识APPID。
+
+<hr>
+
+<h5>Android</h5>
+
+1. 后台设置商户在微信开放平台申请开发应用后，微信开放平台会生成APP的唯一标识APPID。由于需要保证支付安全，需要在开放平台绑定商户应用包名和应用签名，设置好后才能正常发起支付。设置界面在【开放平台】中的栏目【管理中心 / 修改应用 / 修改开发信息】里面，如下图红框内所示。
+
+![dd](https://user-gold-cdn.xitu.io/2017/12/11/160447d08fb3a04b?imageView2/0/w/1280/h/960/format/webp/ignore-error/1)
